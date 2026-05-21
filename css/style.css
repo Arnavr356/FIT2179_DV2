@@ -11,14 +11,20 @@ body {
     line-height: 1.7;
 }
 
-/* HERO SECTION */
+/* HERO */
 
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.55),
-    rgba(0,0,0,0.55)),
-    url('https://images.unsplash.com/photo-1472396961693-142e6e269027?q=80&w=2070&auto=format&fit=crop')
-    center/cover no-repeat;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.55)
+        ),
+        url("https://images.unsplash.com/photo-1516934024742-b461fba47600?q=80&w=2070&auto=format&fit=crop");
+
+    background-size: cover;
+    background-position: center;
 
     display: flex;
     justify-content: center;
@@ -36,48 +42,48 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 5rem;
     color: white;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     line-height: 1.1;
 }
 
 .subtitle {
     color: #f1f1f1;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 300;
 }
 
-/* CONTENT SECTIONS */
+/* MAIN SECTIONS */
 
 .content-section,
 .visual-section {
     max-width: 1200px;
     margin: auto;
-    padding: 100px 40px;
+    padding: 120px 40px;
 }
 
 .content-section h2,
 .visual-section h2 {
     font-family: 'Poppins', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: 25px;
+    font-size: 2.8rem;
+    margin-bottom: 30px;
     color: #1b4332;
 }
 
 .content-section p,
 .visual-section p {
-    font-size: 1.1rem;
-    max-width: 850px;
+    font-size: 1.15rem;
     color: #344e41;
+    max-width: 850px;
 }
 
-/* VISUAL CONTAINERS */
+/* VISUAL SECTIONS */
 
 .visual-section {
     border-top: 1px solid #d8f3dc;
 }
 
 .text-container {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
 }
 
 /* CHART CONTAINERS */
@@ -86,9 +92,15 @@ body {
 #species_bar,
 #heatmap {
     background-color: white;
-    padding: 25px;
-    border-radius: 18px;
-    box-shadow: 0px 4px 20px rgba(0,0,0,0.08);
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0px 4px 20px rgba(0,0,0,0.08);
+
+    overflow: hidden;
 }
 
 /* FOOTER */
@@ -97,11 +109,11 @@ footer {
     background-color: #1b4332;
     color: white;
     text-align: center;
-    padding: 50px 20px;
+    padding: 60px 20px;
 }
 
 footer p {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 /* RESPONSIVE */
@@ -118,12 +130,11 @@ footer p {
 
     .content-section,
     .visual-section {
-        padding: 70px 20px;
+        padding: 80px 20px;
     }
 
     .content-section h2,
     .visual-section h2 {
         font-size: 2rem;
     }
-
 }
