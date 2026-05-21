@@ -12,9 +12,10 @@
   },
 
   "data": {
-    "url": "data/australia_states.geojson",
+    "url": "https://vega.github.io/vega-datasets/data/australia.json",
     "format": {
-      "type": "geojson"
+      "type": "topojson",
+      "feature": "states"
     }
   },
 
@@ -35,7 +36,7 @@
 
     "tooltip": [
       {
-        "field": "STATE_NAME",
+        "field": "properties.STATE_NAME",
         "type": "nominal",
         "title": "State"
       }
