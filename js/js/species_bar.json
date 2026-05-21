@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": 750,
+  "height": 450,
+
+  "title": {
+    "text": "Threatened Species by Category",
+    "fontSize": 24,
+    "font": "Poppins",
+    "color": "#1b4332"
+  },
+
+  "data": {
+    "values": [
+      {"category": "Mammals", "count": 120},
+      {"category": "Birds", "count": 98},
+      {"category": "Reptiles", "count": 76},
+      {"category": "Amphibians", "count": 43},
+      {"category": "Plants", "count": 210},
+      {"category": "Fish", "count": 58}
+    ]
+  },
+
+  "mark": {
+    "type": "bar",
+    "cornerRadiusTopRight": 6,
+    "cornerRadiusBottomRight": 6
+  },
+
+  "encoding": {
+
+    "y": {
+      "field": "category",
+      "type": "nominal",
+      "sort": "-x",
+      "title": null
+    },
+
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "title": "Number of Threatened Species"
+    },
+
+    "color": {
+      "field": "count",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "greens"
+      },
+      "legend": null
+    },
+
+    "tooltip": [
+      {
+        "field": "category",
+        "type": "nominal",
+        "title": "Species Group"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Threatened Species"
+      }
+    ]
+  },
+
+  "config": {
+    "background": "#ffffff",
+
+    "view": {
+      "stroke": null
+    },
+
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#344e41",
+      "titleColor": "#1b4332"
+    }
+  }
+}
