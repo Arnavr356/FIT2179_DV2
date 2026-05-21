@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
 
-  "width": 900,
+  "width": 800,
   "height": 500,
 
   "title": {
@@ -12,12 +12,18 @@
   },
 
   "data": {
-    "url": "https://vega.github.io/vega-datasets/data/australia.json",
+    "url": "https://vega.github.io/vega-datasets/data/world-110m.json",
     "format": {
       "type": "topojson",
-      "feature": "states"
+      "feature": "countries"
     }
   },
+
+  "transform": [
+    {
+      "filter": "datum.id == 36"
+    }
+  ],
 
   "projection": {
     "type": "mercator"
@@ -25,22 +31,9 @@
 
   "mark": {
     "type": "geoshape",
+    "fill": "#74c69d",
     "stroke": "white",
     "strokeWidth": 1.5
-  },
-
-  "encoding": {
-    "color": {
-      "value": "#74c69d"
-    },
-
-    "tooltip": [
-      {
-        "field": "properties.STATE_NAME",
-        "type": "nominal",
-        "title": "State"
-      }
-    ]
   },
 
   "config": {
