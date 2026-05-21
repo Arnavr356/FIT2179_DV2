@@ -1,9 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>FIT2179 DV2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Australia's Threatened Species Crisis</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Vega Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h1>Hello FIT2179</h1>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+
+            <h1>Australia's Threatened Species Crisis</h1>
+
+            <p class="subtitle">
+                Exploring the growing environmental crisis threatening Australia's unique wildlife and ecological communities.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- INTRODUCTION -->
+    <section class="content-section">
+
+        <h2>The Crisis Facing Australian Wildlife</h2>
+
+        <p>
+            Australia is home to some of the world’s most unique ecosystems and species.
+            However, habitat destruction, climate change, invasive species, and bushfires
+            continue to place increasing pressure on biodiversity across the country.
+        </p>
+
+    </section>
+
+    <!-- SECTION 1 -->
+    <section class="visual-section">
+
+        <div class="text-container">
+
+            <h2>Where Are Threatened Communities Located?</h2>
+
+            <p>
+                Threatened ecological communities are unevenly distributed across Australia,
+                with several states experiencing significantly higher environmental pressure.
+            </p>
+
+        </div>
+
+        <div id="map"></div>
+
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="visual-section">
+
+        <div class="text-container">
+
+            <h2>Species Under Threat</h2>
+
+            <p>
+                Different animal and plant groups face varying levels of extinction risk,
+                highlighting the scale and diversity of Australia’s biodiversity crisis.
+            </p>
+
+        </div>
+
+        <div id="species_bar"></div>
+
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="visual-section">
+
+        <div class="text-container">
+
+            <h2>Threat Levels Across Australia</h2>
+
+            <p>
+                Conservation status categories provide insight into the severity of threats
+                experienced by ecological communities nationwide.
+            </p>
+
+        </div>
+
+        <div id="heatmap"></div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            FIT2179 Data Visualisation 2 — Created by YOUR NAME — 2026
+        </p>
+
+        <p>
+            Data Sources:
+            Australian environmental and biodiversity datasets.
+        </p>
+
+    </footer>
+
+    <!-- Main JS -->
+    <script src="main.js"></script>
+
 </body>
+
 </html>
