@@ -1,0 +1,98 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": 650,
+  "height": 350,
+
+  "title": {
+    "text": "Threat Levels Across Species Categories",
+    "fontSize": 24,
+    "font": "Poppins",
+    "color": "#1b4332"
+  },
+
+  "data": {
+    "values": [
+
+      {"species": "Mammals", "status": "Vulnerable", "count": 40},
+      {"species": "Mammals", "status": "Endangered", "count": 55},
+      {"species": "Mammals", "status": "Critically Endangered", "count": 25},
+
+      {"species": "Birds", "status": "Vulnerable", "count": 38},
+      {"species": "Birds", "status": "Endangered", "count": 42},
+      {"species": "Birds", "status": "Critically Endangered", "count": 18},
+
+      {"species": "Reptiles", "status": "Vulnerable", "count": 28},
+      {"species": "Reptiles", "status": "Endangered", "count": 33},
+      {"species": "Reptiles", "status": "Critically Endangered", "count": 15},
+
+      {"species": "Plants", "status": "Vulnerable", "count": 80},
+      {"species": "Plants", "status": "Endangered", "count": 95},
+      {"species": "Plants", "status": "Critically Endangered", "count": 35}
+
+    ]
+  },
+
+  "mark": {
+    "type": "rect",
+    "cornerRadius": 6
+  },
+
+  "encoding": {
+
+    "x": {
+      "field": "status",
+      "type": "nominal",
+      "title": null
+    },
+
+    "y": {
+      "field": "species",
+      "type": "nominal",
+      "title": null
+    },
+
+    "color": {
+      "field": "count",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "greens"
+      },
+      "title": "Species Count"
+    },
+
+    "tooltip": [
+      {
+        "field": "species",
+        "type": "nominal",
+        "title": "Category"
+      },
+      {
+        "field": "status",
+        "type": "nominal",
+        "title": "Threat Level"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Count"
+      }
+    ]
+  },
+
+  "config": {
+
+    "background": "#ffffff",
+
+    "view": {
+      "stroke": null
+    },
+
+    "axis": {
+      "labelFont": "Inter",
+      "titleFont": "Inter",
+      "labelColor": "#344e41",
+      "titleColor": "#1b4332"
+    }
+  }
+}
