@@ -1,0 +1,52 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": 900,
+  "height": 500,
+
+  "title": {
+    "text": "Threatened Ecological Communities Across Australia",
+    "fontSize": 24,
+    "color": "#1b4332",
+    "font": "Poppins"
+  },
+
+  "data": {
+    "url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/australia.json",
+    "format": {
+      "type": "topojson",
+      "feature": "states"
+    }
+  },
+
+  "projection": {
+    "type": "mercator"
+  },
+
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 1.5
+  },
+
+  "encoding": {
+    "color": {
+      "value": "#74c69d"
+    },
+
+    "tooltip": [
+      {
+        "field": "properties.STATE_NAME",
+        "type": "nominal",
+        "title": "State"
+      }
+    ]
+  },
+
+  "config": {
+    "background": "#ffffff",
+    "view": {
+      "stroke": null
+    }
+  }
+}

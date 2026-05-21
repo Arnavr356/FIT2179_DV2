@@ -1,4 +1,4 @@
-vegaEmbed("#map", "js/map.vg.json");
+vegaEmbed("#map", "js/map.json");
 
 vegaEmbed("#species_bar", "js/species_bar.vg.json");
 
