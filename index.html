@@ -1,123 +1,921 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Australia's Threatened Species Crisis</title>
 
-    <title>Australia's Threatened Species Crisis</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Vega-Lite -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
-    <!-- Vega Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <style>
+    :root {
+      --bg:       #0d1117;
+      --surface:  #161b22;
+      --surface2: #1c2330;
+      --border:   #30363d;
+      --text:     #e6edf3;
+      --muted:    #8b949e;
+      --ce:       #e05353;   /* Critically Endangered */
+      --en:       #e8914a;   /* Endangered */
+      --vu:       #f2c94c;   /* Vulnerable */
+      --accent:   #3ea76f;
+      --link:     #58a6ff;
+    }
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, #0a0f0a 0%, #0d1f12 40%, #0d1117 100%);
+      padding: 80px 40px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(62,167,111,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-kicker {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--ce);
+    }
+    .hero-sub {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    /* ── BIG STATS ── */
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 10px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 32px;
+      text-align: center;
+      min-width: 160px;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .stat-card.ce  .stat-num { color: var(--ce); }
+    .stat-card.en  .stat-num { color: var(--en); }
+    .stat-card.vu  .stat-num { color: var(--vu); }
+    .stat-card.tot .stat-num { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+    section {
+      padding: 60px 0 20px;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+    .section-desc {
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 36px;
+      font-size: 0.97rem;
+      line-height: 1.7;
+    }
+
+    /* ── CHART GRID ── */
+    .chart-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .chart-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .chart-full { margin-bottom: 28px; }
+
+    .chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 20px 16px;
+    }
+    .chart-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    .chart-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .chart-card .vega-embed { width: 100%; }
+    .chart-card .vega-embed canvas,
+    .chart-card .vega-embed svg { max-width: 100%; }
+
+    /* ── LEGEND STRIP ── */
+    .legend-strip {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 20px 0;
+    }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: rgba(224, 83, 83, .08);
+      border-left: 3px solid var(--ce);
+      border-radius: 0 8px 8px 0;
+      padding: 16px 20px;
+      margin: 24px 0;
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .callout strong { color: var(--ce); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 36px 32px;
+      margin-top: 60px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    footer a { color: var(--link); text-decoration: none; }
+    footer strong { color: var(--text); }
+
+    @media (max-width: 768px) {
+      .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
+      .hero { padding: 50px 20px 40px; }
+      .page { padding: 0 16px; }
+    }
+  </style>
 </head>
-
 <body>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-content">
+<!-- ══════════ HERO ══════════ -->
+<header class="hero">
+  <div class="hero-kicker">Australia's Biodiversity Emergency</div>
+  <h1>The <em>Threatened Species</em><br>Crisis</h1>
+  <p class="hero-sub">
+    Australia is one of the world's most biodiverse nations — yet it also holds the unenviable record
+    as a global leader in species extinction. More than 2,000 animal and plant species are currently
+    listed as threatened under Australian federal law. This visualisation explores who they are,
+    where they live, and how urgent the situation has become.
+  </p>
+  <div class="stat-row">
+    <div class="stat-card tot">
+      <div class="stat-num">2,098</div>
+      <div class="stat-label">Threatened Species</div>
+    </div>
+    <div class="stat-card ce">
+      <div class="stat-num">453</div>
+      <div class="stat-label">Critically Endangered</div>
+    </div>
+    <div class="stat-card en">
+      <div class="stat-num">860</div>
+      <div class="stat-label">Endangered</div>
+    </div>
+    <div class="stat-card vu">
+      <div class="stat-num">785</div>
+      <div class="stat-label">Vulnerable</div>
+    </div>
+  </div>
+</header>
 
-            <h1>Australia's Threatened Species Crisis</h1>
+<!-- ══════════ SECTION 1 — Overview ══════════ -->
+<div class="page">
 
-            <p class="subtitle">
-                Exploring the growing environmental crisis threatening Australia's unique wildlife and ecological communities.
-            </p>
+<section id="overview">
+  <div class="section-label">Section 1 — The Scale of the Problem</div>
+  <h2 class="section-title">Who is at risk?</h2>
+  <p class="section-desc">
+    Australia's threatened species list spans every kingdom of life. Plants make up the largest
+    share by far — nearly 1,500 plant species are at risk. But proportionally, some animal groups
+    face an even more dire outlook, with frogs and invertebrates having the highest share of
+    critically endangered listings.
+  </p>
 
-        </div>
-    </section>
+  <div class="legend-strip">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--ce)"></div> Critically Endangered</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--en)"></div> Endangered</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--vu)"></div> Vulnerable</div>
+  </div>
 
-    <!-- INTRODUCTION -->
-    <section class="content-section">
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <h3>Threatened Species by Group</h3>
+      <p>Total threatened listings across all 8 biological groups, stacked by threat status.</p>
+      <div id="chart-group-stacked"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Share of Each Group That Is Critically Endangered</h3>
+      <p>The most alarming signal: what fraction of each group is on the brink of extinction?</p>
+      <div id="chart-crit-ratio"></div>
+    </div>
+  </div>
 
-        <h2>The Crisis Facing Australian Wildlife</h2>
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <h3>Species Distribution by Group</h3>
+      <p>Proportional breakdown showing how threatened species are distributed across biological groups.</p>
+      <div id="chart-donut"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Status Breakdown: Species vs Ecological Communities</h3>
+      <p>Both individual species and the ecosystems they depend on are under threat — communities are listed separately.</p>
+      <div id="chart-status-compare"></div>
+    </div>
+  </div>
+</section>
 
-        <p>
-            Australia is home to some of the world’s most unique ecosystems and species.
-            However, habitat destruction, climate change, invasive species, and bushfires
-            continue to place increasing pressure on biodiversity across the country.
-        </p>
+<hr class="divider" />
 
-    </section>
+<!-- ══════════ SECTION 2 — Geography ══════════ -->
+<section id="geography">
+  <div class="section-label">Section 2 — Where in Australia?</div>
+  <h2 class="section-title">The geography of loss</h2>
+  <p class="section-desc">
+    Threatened species are not evenly distributed across Australia. NSW carries the heaviest burden
+    with over 780 threatened species and communities — nearly double the next highest states.
+    Western Australia and Queensland are also major hotspots, particularly for plant species.
+  </p>
 
-    <!-- SECTION 1 -->
-    <section class="visual-section">
+  <div class="chart-full chart-card">
+    <h3>🗺️ Total Threatened Listings per State & Territory</h3>
+    <p>A geographic choropleth showing the total count of threatened species and ecological communities by jurisdiction. Hover over each state for details.</p>
+    <div id="chart-map"></div>
+  </div>
 
-        <div class="text-container">
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <h3>Threatened Species by State</h3>
+      <p>Stacked bar showing species count per state, broken down by threat status.</p>
+      <div id="chart-state-species"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Threatened Ecological Communities by State</h3>
+      <p>Beyond species — entire ecosystems are also on the threatened list. NSW has the most.</p>
+      <div id="chart-state-comm"></div>
+    </div>
+  </div>
 
-            <h2>Where Are Threatened Communities Located?</h2>
+  <div class="callout">
+    <strong>NSW leads Australia in biodiversity loss.</strong> With 721 threatened species and
+    60 threatened ecological communities, New South Wales is by far the hardest-hit state.
+    This reflects both genuine ecological pressure — from land clearing, urban sprawl and invasive
+    species — and the state's high biodiversity relative to other jurisdictions.
+  </div>
+</section>
 
-            <p>
-                Threatened ecological communities are unevenly distributed across Australia,
-                with several states experiencing significantly higher environmental pressure.
-            </p>
+<hr class="divider" />
 
-        </div>
+<!-- ══════════ SECTION 3 — Communities ══════════ -->
+<section id="communities">
+  <div class="section-label">Section 3 — Ecosystem Collapse</div>
+  <h2 class="section-title">Threatened ecological communities</h2>
+  <p class="section-desc">
+    Beyond individual species, entire ecological communities — forests, wetlands, grasslands and
+    coastal systems — are also protected under the <em>Environment Protection and Biodiversity
+    Conservation Act 1999</em>. Australia currently lists 111 threatened ecological communities.
+    Some span multiple states, making coordinated conservation across jurisdictions essential.
+  </p>
 
-        <div id="map"></div>
+  <div class="chart-full chart-card">
+    <h3>Most Widespread Threatened Communities (by number of states)</h3>
+    <p>These ecological communities are listed across multiple states simultaneously — an indication of how broadly some ecosystems have declined.</p>
+    <div id="chart-top-communities"></div>
+  </div>
 
-    </section>
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <h3>Community Status Breakdown</h3>
+      <p>Of Australia's 111 threatened ecological communities, how many are in each category?</p>
+      <div id="chart-comm-status"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Species vs Communities: State Comparison</h3>
+      <p>A dot plot comparing threatened species count against threatened community count per state — states in the top-right face the greatest combined pressure.</p>
+      <div id="chart-scatter"></div>
+    </div>
+  </div>
+</section>
 
-    <!-- SECTION 2 -->
-    <section class="visual-section">
+<hr class="divider" />
 
-        <div class="text-container">
+<!-- ══════════ SECTION 4 — Animal Deep-Dive ══════════ -->
+<section id="animals">
+  <div class="section-label">Section 4 — Animal Groups in Detail</div>
+  <h2 class="section-title">A crisis across the animal kingdom</h2>
+  <p class="section-desc">
+    While plants account for the sheer number of threatened listings, Australia's animals face
+    a particularly alarming situation. Frogs, invertebrates and fish have extremely high proportions
+    of critically endangered species — groups that receive far less public attention than
+    iconic mammals.
+  </p>
 
-            <h2>Species Under Threat</h2>
+  <div class="chart-grid-3">
+    <div class="chart-card">
+      <h3>Birds</h3>
+      <p>164 species threatened — the most of any vertebrate animal group in Australia.</p>
+      <div id="chart-birds"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Mammals</h3>
+      <p>113 species threatened. Australia has the world's worst mammal extinction record.</p>
+      <div id="chart-mammals"></div>
+    </div>
+    <div class="chart-card">
+      <h3>Frogs, Fish &amp; Reptiles</h3>
+      <p>Together over 200 species — frogs in particular have an alarming share of critically endangered listings.</p>
+      <div id="chart-others"></div>
+    </div>
+  </div>
+</section>
 
-            <p>
-                Different animal and plant groups face varying levels of extinction risk,
-                highlighting the scale and diversity of Australia’s biodiversity crisis.
-            </p>
+</div><!-- end .page -->
 
-        </div>
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <div style="max-width:1200px; margin:0 auto; padding:0 0px;">
+    <strong>Data Sources</strong><br />
+    Species data: Department of Climate Change, Energy, the Environment and Water (DCCEEW),
+    <em>Species Profile and Threats Database (SPRAT)</em>, Australian Government,
+    <a href="https://www.environment.gov.au/cgi-bin/sprat/public/publicthreatenedlist.pl" target="_blank">environment.gov.au</a>.<br />
+    Ecological communities data: DCCEEW, <em>Threatened Ecological Communities list</em>, Australian Government.<br />
+    Geographic boundaries: Australian Bureau of Statistics / GeoJSON-Data (CC BY 4.0).<br /><br />
+    <strong>Author:</strong> FIT2179 Data Visualisation 2, Monash University, Semester 1 2026 &nbsp;·&nbsp;
+    <strong>Date:</strong> May 2026 &nbsp;·&nbsp;
+    AI tools (Claude, Anthropic) were used to assist in data processing, code generation, and grammar checking. All visualisation design decisions and analysis are the author's own.
+  </div>
+</footer>
 
-        <div id="species_bar"></div>
+<!-- ══════════ VEGA-LITE SPECS ══════════ -->
+<script>
+const CE = "#e05353", EN = "#e8914a", VU = "#f2c94c";
+const STATUS_COLORS = {"Critically Endangered": CE, "Endangered": EN, "Vulnerable": VU};
+const STATUS_ORDER = ["Critically Endangered", "Endangered", "Vulnerable"];
+const BG = "#161b22", TEXT = "#e6edf3", MUTED = "#8b949e", GRID = "#21262d";
 
-    </section>
+const baseConfig = {
+  background: BG,
+  view: { stroke: "transparent" },
+  axis: {
+    domainColor: GRID,
+    gridColor: GRID,
+    tickColor: GRID,
+    labelColor: MUTED,
+    titleColor: MUTED,
+    labelFontSize: 11,
+    titleFontSize: 11,
+    titleFont: "Source Sans 3",
+    labelFont: "Source Sans 3"
+  },
+  legend: {
+    labelColor: MUTED,
+    titleColor: MUTED,
+    labelFontSize: 11,
+    titleFontSize: 11,
+    labelFont: "Source Sans 3",
+    titleFont: "Source Sans 3"
+  },
+  title: { color: TEXT, fontSize: 13, font: "Source Sans 3" }
+};
 
-    <!-- SECTION 3 -->
-    <section class="visual-section">
+// ── 1. Stacked bar: species by group ──
+const groupStatusSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/group_status.json" },
+  width: "container", height: 260,
+  mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+  encoding: {
+    x: { field: "group", type: "nominal", sort: "-y",
+         axis: { labelAngle: -30, title: null } },
+    y: { aggregate: "sum", field: "count", type: "quantitative",
+         axis: { title: "Number of species", grid: true } },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Threat status", orient: "top" }
+    },
+    order: { field: "status", sort: "ascending" },
+    tooltip: [
+      { field: "group", title: "Group" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-group-stacked", groupStatusSpec, { actions: false });
 
-        <div class="text-container">
+// ── 2. Critical Endangered ratio ──
+const critRatioSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/crit_ratio.json" },
+  width: "container", height: 260,
+  mark: { type: "bar", color: CE, cornerRadiusTopRight: 3, cornerRadiusBottomRight: 3 },
+  encoding: {
+    y: { field: "group", type: "nominal", sort: "-x",
+         axis: { title: null } },
+    x: { field: "pct_critical", type: "quantitative",
+         axis: { title: "% Critically Endangered", format: ".0f", labelExpr: "datum.value + '%'" } },
+    tooltip: [
+      { field: "group", title: "Group" },
+      { field: "pct_critical", title: "% Critically Endangered", format: ".1f" },
+      { field: "total", title: "Total threatened" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-crit-ratio", critRatioSpec, { actions: false });
 
-            <h2>Threat Levels Across Australia</h2>
+// ── 3. Donut chart ──
+const donutSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/group_totals.json" },
+  width: "container", height: 260,
+  mark: { type: "arc", innerRadius: 70, outerRadius: 115, stroke: BG, strokeWidth: 2 },
+  encoding: {
+    theta: { field: "total", type: "quantitative" },
+    color: {
+      field: "group", type: "nominal",
+      scale: { scheme: "tableau10" },
+      legend: { title: "Group", orient: "right" }
+    },
+    tooltip: [
+      { field: "group", title: "Group" },
+      { field: "total", title: "Total threatened" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-donut", donutSpec, { actions: false });
 
-            <p>
-                Conservation status categories provide insight into the severity of threats
-                experienced by ecological communities nationwide.
-            </p>
+// ── 4. Status compare grouped bars ──
+const statusCompareSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  layer: [
+    {
+      data: { values: [
+        { type: "Species", status: "Critically Endangered", count: 453 },
+        { type: "Species", status: "Endangered", count: 860 },
+        { type: "Species", status: "Vulnerable", count: 785 },
+        { type: "Communities", status: "Critically Endangered", count: 47 },
+        { type: "Communities", status: "Endangered", count: 60 },
+        { type: "Communities", status: "Vulnerable", count: 2 }
+      ]},
+      mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+      encoding: {
+        x: { field: "type", type: "nominal", axis: { title: null, labelAngle: 0 } },
+        y: { field: "count", type: "quantitative", axis: { title: "Count", grid: true } },
+        xOffset: { field: "status", type: "nominal", sort: STATUS_ORDER },
+        color: {
+          field: "status", type: "nominal",
+          scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+          legend: { title: "Status", orient: "top" }
+        },
+        tooltip: [
+          { field: "type", title: "Type" },
+          { field: "status", title: "Status" },
+          { field: "count", title: "Count" }
+        ]
+      }
+    }
+  ],
+  width: "container", height: 260,
+  config: baseConfig
+};
+vegaEmbed("#chart-status-compare", statusCompareSpec, { actions: false });
 
-        </div>
+// ── 5. MAP ──
+const mapSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container", height: 460,
+  projection: { type: "mercator" },
+  layer: [
+    {
+      data: {
+        url: "data/australia-states.json",
+        format: { type: "topojson", feature: "features" }
+      },
+      mark: { type: "geoshape", stroke: "#0d1117", strokeWidth: 1 },
+      transform: [
+        {
+          lookup: "properties.state",
+          from: {
+            data: { url: "data/state_total.json" },
+            key: "state",
+            fields: ["total", "species", "communities", "critically_endangered"]
+          }
+        }
+      ],
+      encoding: {
+        color: {
+          field: "total", type: "quantitative",
+          scale: { scheme: "greens", reverse: false, domain: [0, 800] },
+          legend: { title: "Total threatened listings", orient: "right", gradientLength: 160 }
+        },
+        tooltip: [
+          { field: "properties.STATE_NAME", title: "State/Territory" },
+          { field: "total", title: "Total listings" },
+          { field: "species", title: "Threatened species" },
+          { field: "communities", title: "Threatened communities" },
+          { field: "critically_endangered", title: "Critically Endangered species" }
+        ]
+      }
+    },
+    {
+      data: { values: [
+        { state: "NSW", lon: 146.5, lat: -32.5 },
+        { state: "VIC", lon: 144.5, lat: -37 },
+        { state: "QLD", lon: 144.5, lat: -22 },
+        { state: "SA",  lon: 135,   lat: -30 },
+        { state: "WA",  lon: 122,   lat: -27 },
+        { state: "TAS", lon: 146.5, lat: -42 },
+        { state: "NT",  lon: 133.5, lat: -19 },
+        { state: "ACT", lon: 149.1, lat: -35.5 }
+      ]},
+      mark: { type: "text", fontSize: 11, fontWeight: "bold", fill: TEXT, opacity: 0.8 },
+      encoding: {
+        longitude: { field: "lon", type: "quantitative" },
+        latitude:  { field: "lat", type: "quantitative" },
+        text: { field: "state", type: "nominal" }
+      }
+    }
+  ],
+  config: { ...baseConfig, view: { stroke: "transparent" } }
+};
 
-        <div id="heatmap"></div>
+// The GeoJSON from the URL is already GeoJSON not TopoJSON — fix spec
+const mapSpecFixed = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  width: "container", height: 460,
+  projection: { type: "mercator" },
+  layer: [
+    {
+      data: { url: "data/australia-states.json", format: { type: "json", property: "features" } },
+      mark: { type: "geoshape", stroke: "#0d1117", strokeWidth: 1.5 },
+      transform: [
+        {
+          lookup: "properties.state",
+          from: {
+            data: { url: "data/state_total.json" },
+            key: "state",
+            fields: ["total", "species", "communities", "critically_endangered"]
+          }
+        }
+      ],
+      encoding: {
+        color: {
+          field: "total", type: "quantitative",
+          scale: { scheme: "greens", domain: [0, 800] },
+          legend: { title: "Total threatened listings", orient: "right", gradientLength: 160 }
+        },
+        tooltip: [
+          { field: "properties.STATE_NAME", title: "State/Territory" },
+          { field: "total", title: "Total listings" },
+          { field: "species", title: "Threatened species" },
+          { field: "communities", title: "Threatened communities" },
+          { field: "critically_endangered", title: "Crit. Endangered species" }
+        ]
+      }
+    },
+    {
+      data: { values: [
+        { state: "NSW", lon: 146.5, lat: -32.5, total: 781 },
+        { state: "VIC", lon: 144.5, lat: -37.0, total: 365 },
+        { state: "QLD", lon: 144.5, lat: -22.0, total: 597 },
+        { state: "SA",  lon: 135.0, lat: -30.0, total: 311 },
+        { state: "WA",  lon: 122.0, lat: -27.0, total: 606 },
+        { state: "TAS", lon: 146.5, lat: -42.0, total: 222 },
+        { state: "NT",  lon: 133.5, lat: -19.0, total: 144 },
+        { state: "ACT", lon: 149.3, lat: -35.5, total: 74  }
+      ]},
+      mark: { type: "text", fontSize: 11, fontWeight: "600", opacity: 0.95 },
+      encoding: {
+        longitude: { field: "lon", type: "quantitative" },
+        latitude:  { field: "lat", type: "quantitative" },
+        text: { field: "state", type: "nominal" },
+        color: { value: "#fff" }
+      }
+    }
+  ],
+  config: { ...baseConfig, view: { stroke: "transparent" } }
+};
+vegaEmbed("#chart-map", mapSpecFixed, { actions: false });
 
-    </section>
+// ── 6. State species stacked bar ──
+const stateSpeciesSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/state_species.json" },
+  width: "container", height: 280,
+  mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+  encoding: {
+    x: { field: "state", type: "nominal", sort: ["-y"],
+         axis: { title: null, labelAngle: 0 } },
+    y: { aggregate: "sum", field: "count", type: "quantitative",
+         axis: { title: "Species count", grid: true } },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Status", orient: "top" }
+    },
+    order: { field: "status", sort: "ascending" },
+    tooltip: [
+      { field: "state", title: "State" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-state-species", stateSpeciesSpec, { actions: false });
 
-    <!-- FOOTER -->
-    <footer>
+// ── 7. State communities stacked bar ──
+const stateCommSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/state_communities.json" },
+  width: "container", height: 280,
+  mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+  encoding: {
+    x: { field: "state", type: "nominal", sort: ["-y"],
+         axis: { title: null, labelAngle: 0 } },
+    y: { aggregate: "sum", field: "count", type: "quantitative",
+         axis: { title: "Communities count", grid: true } },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Status", orient: "top" }
+    },
+    order: { field: "status", sort: "ascending" },
+    tooltip: [
+      { field: "state", title: "State" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-state-comm", stateCommSpec, { actions: false });
 
-        <p>
-            FIT2179 Data Visualisation 2 — Created by Arnav Raj — 2026
-        </p>
+// ── 8. Top communities horizontal bar ──
+const topCommSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/top_communities.json" },
+  width: "container", height: 320,
+  mark: { type: "bar", cornerRadiusTopRight: 3, cornerRadiusBottomRight: 3 },
+  encoding: {
+    y: { field: "community", type: "nominal", sort: "-x",
+         axis: { title: null, labelFontSize: 10, labelLimit: 320 } },
+    x: { field: "states", type: "quantitative",
+         axis: { title: "Number of states/territories", tickMinStep: 1, grid: true } },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Status", orient: "top" }
+    },
+    tooltip: [
+      { field: "full_name", title: "Community" },
+      { field: "status", title: "Status" },
+      { field: "states", title: "No. of states" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-top-communities", topCommSpec, { actions: false });
 
-        <p>
-            Data Sources:
-            Australian environmental and biodiversity datasets.
-        </p>
+// ── 9. Community status donut ──
+const commStatusSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { values: [
+    { status: "Critically Endangered", count: 47 },
+    { status: "Endangered", count: 60 },
+    { status: "Vulnerable", count: 2 }
+  ]},
+  width: "container", height: 260,
+  mark: { type: "arc", innerRadius: 65, outerRadius: 110, stroke: BG, strokeWidth: 2 },
+  encoding: {
+    theta: { field: "count", type: "quantitative" },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Status", orient: "bottom" }
+    },
+    tooltip: [
+      { field: "status", title: "Status" },
+      { field: "count", title: "Communities" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-comm-status", commStatusSpec, { actions: false });
 
-    </footer>
+// ── 10. Scatter: species vs communities by state ──
+const scatterSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/state_total.json" },
+  width: "container", height: 260,
+  layer: [
+    {
+      mark: { type: "circle", size: 100, opacity: 0.85 },
+      encoding: {
+        x: { field: "species", type: "quantitative",
+             axis: { title: "Threatened species count", grid: true } },
+        y: { field: "communities", type: "quantitative",
+             axis: { title: "Threatened communities", grid: true } },
+        color: {
+          field: "critically_endangered", type: "quantitative",
+          scale: { scheme: "reds", domain: [0, 160] },
+          legend: { title: "Crit. Endangered species" }
+        },
+        size: { field: "total", type: "quantitative", scale: { range: [60, 500] },
+                legend: { title: "Total listings" } },
+        tooltip: [
+          { field: "state", title: "State" },
+          { field: "species", title: "Threatened species" },
+          { field: "communities", title: "Threatened communities" },
+          { field: "critically_endangered", title: "Crit. Endangered" }
+        ]
+      }
+    },
+    {
+      mark: { type: "text", dy: -14, fontSize: 11, fontWeight: "600" },
+      encoding: {
+        x: { field: "species", type: "quantitative" },
+        y: { field: "communities", type: "quantitative" },
+        text: { field: "state", type: "nominal" },
+        color: { value: TEXT }
+      }
+    }
+  ],
+  config: baseConfig
+};
+vegaEmbed("#chart-scatter", scatterSpec, { actions: false });
 
-    <!-- Main JS -->
-    <script src="main.js"></script>
+// ── 11–13. Individual animal group arc charts ──
+function animalArcSpec(values, title) {
+  return {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: { values },
+    width: "container", height: 200,
+    mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: BG, strokeWidth: 1.5 },
+    encoding: {
+      theta: { field: "count", type: "quantitative" },
+      color: {
+        field: "status", type: "nominal",
+        scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+        legend: { title: null, orient: "bottom", labelFontSize: 10 }
+      },
+      tooltip: [
+        { field: "status", title: "Status" },
+        { field: "count", title: "Count" }
+      ]
+    },
+    config: baseConfig
+  };
+}
 
+vegaEmbed("#chart-birds", animalArcSpec([
+  { status: "Critically Endangered", count: 18 },
+  { status: "Endangered", count: 69 },
+  { status: "Vulnerable", count: 77 }
+]), { actions: false });
+
+vegaEmbed("#chart-mammals", animalArcSpec([
+  { status: "Critically Endangered", count: 9 },
+  { status: "Endangered", count: 47 },
+  { status: "Vulnerable", count: 57 }
+]), { actions: false });
+
+// Frogs + Fish + Reptiles combined bar
+const otherGroupSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { values: [
+    { group: "Frogs",    status: "Critically Endangered", count: 18 },
+    { group: "Frogs",    status: "Endangered",            count: 15 },
+    { group: "Frogs",    status: "Vulnerable",            count: 16 },
+    { group: "Fish",     status: "Critically Endangered", count: 28 },
+    { group: "Fish",     status: "Endangered",            count: 30 },
+    { group: "Fish",     status: "Vulnerable",            count: 21 },
+    { group: "Reptiles", status: "Critically Endangered", count: 27 },
+    { group: "Reptiles", status: "Endangered",            count: 40 },
+    { group: "Reptiles", status: "Vulnerable",            count: 34 }
+  ]},
+  width: "container", height: 200,
+  mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+  encoding: {
+    x: { field: "group", type: "nominal", axis: { title: null, labelAngle: 0 } },
+    y: { aggregate: "sum", field: "count", type: "quantitative",
+         axis: { title: "Count", grid: true } },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: null, orient: "bottom", labelFontSize: 10 }
+    },
+    order: { field: "status", sort: "ascending" },
+    tooltip: [
+      { field: "group", title: "Group" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-others", otherGroupSpec, { actions: false });
+</script>
 </body>
-
 </html>
