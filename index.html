@@ -5,248 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Australia's Threatened Species Crisis</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
 
-  <!-- Vega-Lite -->
+  <link rel="stylesheet" href="style.css" />
+
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-
-  <style>
-    :root {
-      --bg:       #0d1117;
-      --surface:  #161b22;
-      --surface2: #1c2330;
-      --border:   #30363d;
-      --text:     #e6edf3;
-      --muted:    #8b949e;
-      --ce:       #e05353;   /* Critically Endangered */
-      --en:       #e8914a;   /* Endangered */
-      --vu:       #f2c94c;   /* Vulnerable */
-      --accent:   #3ea76f;
-      --link:     #58a6ff;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(160deg, #0a0f0a 0%, #0d1f12 40%, #0d1117 100%);
-      padding: 80px 40px 60px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(62,167,111,.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-kicker {
-      font-family: 'Source Sans 3', sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 18px;
-    }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 5vw, 4.2rem);
-      font-weight: 900;
-      line-height: 1.1;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--ce);
-    }
-    .hero-sub {
-      max-width: 680px;
-      margin: 0 auto 40px;
-      color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.75;
-    }
-
-    /* ── BIG STATS ── */
-    .stat-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 24px;
-      margin-top: 10px;
-    }
-    .stat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 32px;
-      text-align: center;
-      min-width: 160px;
-    }
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.6rem;
-      font-weight: 700;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 6px;
-    }
-    .stat-card.ce  .stat-num { color: var(--ce); }
-    .stat-card.en  .stat-num { color: var(--en); }
-    .stat-card.vu  .stat-num { color: var(--vu); }
-    .stat-card.tot .stat-num { color: var(--accent); }
-
-    /* ── LAYOUT ── */
-    .page { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-
-    section {
-      padding: 60px 0 20px;
-    }
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-    .section-desc {
-      color: var(--muted);
-      max-width: 680px;
-      margin-bottom: 36px;
-      font-size: 0.97rem;
-      line-height: 1.7;
-    }
-
-    /* ── CHART GRID ── */
-    .chart-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-    .chart-grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 28px;
-    }
-    .chart-full { margin-bottom: 28px; }
-
-    .chart-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px 20px 16px;
-    }
-    .chart-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: var(--text);
-    }
-    .chart-card p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
-    .chart-card .vega-embed { width: 100%; }
-    .chart-card .vega-embed canvas,
-    .chart-card .vega-embed svg { max-width: 100%; }
-
-    /* ── LEGEND STRIP ── */
-    .legend-strip {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-    .legend-dot {
-      width: 12px; height: 12px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 20px 0;
-    }
-
-    /* ── CALLOUT ── */
-    .callout {
-      background: rgba(224, 83, 83, .08);
-      border-left: 3px solid var(--ce);
-      border-radius: 0 8px 8px 0;
-      padding: 16px 20px;
-      margin: 24px 0;
-      font-size: 0.95rem;
-      color: var(--text);
-      line-height: 1.65;
-    }
-    .callout strong { color: var(--ce); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 36px 32px;
-      margin-top: 60px;
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    footer a { color: var(--link); text-decoration: none; }
-    footer strong { color: var(--text); }
-
-    @media (max-width: 768px) {
-      .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
-      .hero { padding: 50px 20px 40px; }
-      .page { padding: 0 16px; }
-    }
-  </style>
 </head>
 <body>
 
-<!-- ══════════ HERO ══════════ -->
 <header class="hero">
   <div class="hero-kicker">Australia's Biodiversity Emergency</div>
   <h1>The <em>Threatened Species</em><br>Crisis</h1>
@@ -276,7 +44,6 @@
   </div>
 </header>
 
-<!-- ══════════ SECTION 1 — Overview ══════════ -->
 <div class="page">
 
 <section id="overview">
@@ -324,7 +91,6 @@
 
 <hr class="divider" />
 
-<!-- ══════════ SECTION 2 — Geography ══════════ -->
 <section id="geography">
   <div class="section-label">Section 2 — Where in Australia?</div>
   <h2 class="section-title">The geography of loss</h2>
@@ -363,7 +129,6 @@
 
 <hr class="divider" />
 
-<!-- ══════════ SECTION 3 — Communities ══════════ -->
 <section id="communities">
   <div class="section-label">Section 3 — Ecosystem Collapse</div>
   <h2 class="section-title">Threatened ecological communities</h2>
@@ -396,7 +161,6 @@
 
 <hr class="divider" />
 
-<!-- ══════════ SECTION 4 — Animal Deep-Dive ══════════ -->
 <section id="animals">
   <div class="section-label">Section 4 — Animal Groups in Detail</div>
   <h2 class="section-title">A crisis across the animal kingdom</h2>
@@ -426,29 +190,26 @@
   </div>
 </section>
 
-</div><!-- end .page -->
-
-<!-- ══════════ FOOTER ══════════ -->
-<footer>
-  <div style="max-width:1200px; margin:0 auto; padding:0 0px;">
-    <strong>Data Sources</strong><br />
-    Species data: Department of Climate Change, Energy, the Environment and Water (DCCEEW),
-    <em>Species Profile and Threats Database (SPRAT)</em>, Australian Government,
-    <a href="https://www.environment.gov.au/cgi-bin/sprat/public/publicthreatenedlist.pl" target="_blank">environment.gov.au</a>.<br />
-    Ecological communities data: DCCEEW, <em>Threatened Ecological Communities list</em>, Australian Government.<br />
-    Geographic boundaries: Australian Bureau of Statistics / GeoJSON-Data (CC BY 4.0).<br /><br />
-    <strong>Author:</strong> FIT2179 Data Visualisation 2, Monash University, Semester 1 2026 &nbsp;·&nbsp;
-    <strong>Date:</strong> May 2026 &nbsp;·&nbsp;
-    
+</div><footer class="nature-footer">
+  <div class="footer-content">
+    <div class="footer-text">
+      Made by - Arnav Raj<br>
+      Student ID - 34484515<br>
+      Data Source Links -<br>
+      <a href="https://data.gov.au/data/dataset/threatened-species-state-lists" target="_blank" rel="noopener">https://data.gov.au/data/dataset/threatened-species-state-lists</a><br>
+      <a href="https://support.ala.org.au/support/solutions/articles/6000261718-downloading-ala-data" target="_blank" rel="noopener">https://support.ala.org.au/support/solutions/articles/6000261718-downloading-ala-data</a>
+    </div>
   </div>
 </footer>
 
-<!-- ══════════ VEGA-LITE SPECS ══════════ -->
 <script>
-const CE = "#e05353", EN = "#e8914a", VU = "#f2c94c";
+// Updated nature theme colors
+const CE = "#c84b31", EN = "#d98841", VU = "#e1b12c";
 const STATUS_COLORS = {"Critically Endangered": CE, "Endangered": EN, "Vulnerable": VU};
 const STATUS_ORDER = ["Critically Endangered", "Endangered", "Vulnerable"];
-const BG = "#161b22", TEXT = "#e6edf3", MUTED = "#8b949e", GRID = "#21262d";
+
+// Updated background and text variables for light mode
+const BG = "transparent", TEXT = "#2c3e2d", MUTED = "#6b7a68", GRID = "#e2e4dc";
 
 const baseConfig = {
   background: BG,
@@ -528,7 +289,7 @@ const donutSpec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
   data: { url: "data/group_totals.json" },
   width: "container", height: 260,
-  mark: { type: "arc", innerRadius: 70, outerRadius: 115, stroke: BG, strokeWidth: 2 },
+  mark: { type: "arc", innerRadius: 70, outerRadius: 115, stroke: "#ffffff", strokeWidth: 2 },
   encoding: {
     theta: { field: "total", type: "quantitative" },
     color: {
@@ -578,7 +339,7 @@ const mapSpecFixed = {
   layer: [
     {
       data: { url: "data/australia-states.json", format: { type: "json", property: "features" } },
-      mark: { type: "geoshape", stroke: "#0d1117", strokeWidth: 1.5 },
+      mark: { type: "geoshape", stroke: "#ffffff", strokeWidth: 1.5 },
       transform: [
         {
           lookup: "properties.state",
@@ -611,7 +372,7 @@ const mapSpecFixed = {
         longitude: { field: "lon", type: "quantitative" },
         latitude:  { field: "lat", type: "quantitative" },
         text: { field: "state", type: "nominal" },
-        color: { value: "#fff" }
+        color: { value: "#2c3e2d" }
       }
     }
   ],
@@ -704,7 +465,7 @@ const commStatusSpec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
   data: { url: "data/comm_status.json" },
   width: "container", height: 260,
-  mark: { type: "arc", innerRadius: 65, outerRadius: 110, stroke: BG, strokeWidth: 2 },
+  mark: { type: "arc", innerRadius: 65, outerRadius: 110, stroke: "#ffffff", strokeWidth: 2 },
   encoding: {
     theta: { field: "count", type: "quantitative" },
     color: {
@@ -769,7 +530,7 @@ const birdsSpec = {
   data: { url: "data/animal_groups.json" },
   transform: [{ filter: "datum.group === 'Birds'" }],
   width: "container", height: 200,
-  mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: BG, strokeWidth: 1.5 },
+  mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: "#ffffff", strokeWidth: 1.5 },
   encoding: {
     theta: { field: "count", type: "quantitative" },
     color: {
@@ -792,7 +553,7 @@ const mammalsSpec = {
   data: { url: "data/animal_groups.json" },
   transform: [{ filter: "datum.group === 'Mammals'" }],
   width: "container", height: 200,
-  mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: BG, strokeWidth: 1.5 },
+  mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: "#ffffff", strokeWidth: 1.5 },
   encoding: {
     theta: { field: "count", type: "quantitative" },
     color: {
