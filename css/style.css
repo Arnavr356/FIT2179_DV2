@@ -1,16 +1,16 @@
-/* ══════════ NATURE THEME VARIABLES ══════════ */
+/* ══════════ NATURE THEME ══════════ */
 :root {
-  --bg:       #f4f1ea;   /* Earthy off-white / cream */
-  --surface:  #ffffff;   /* Clean white for chart cards */
-  --surface2: #e9ece4;   /* Light sage green for accents */
-  --border:   #d1d8c9;   /* Soft green-grey for borders */
-  --text:     #2c3e2d;   /* Deep forest green for main text */
-  --muted:    #6b7a68;   /* Muted olive for descriptions/labels */
+  --bg:       #f4f1ea;   /* Earthy cream */
+  --surface:  #ffffff;   /* Clean white */
+  --surface2: #e9ece4;   /* Light sage green */
+  --border:   #d1d8c9;   /* Soft green-grey */
+  --text:     #2c3e2d;   /* Deep forest green */
+  --muted:    #6b7a68;   /* Muted olive */
   --ce:       #c84b31;   /* Critically Endangered (Earthy Red) */
   --en:       #d98841;   /* Endangered (Earthy Orange) */
-  --vu:       #e1b12c;   /* Vulnerable (Earthy Yellow/Gold) */
+  --vu:       #e1b12c;   /* Vulnerable (Earthy Yellow) */
   --accent:   #4a6741;   /* Leaf green */
-  --link:     #3a5a30;   /* Deep green for links */
+  --link:     #3a5a30;   /* Deep green */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -131,18 +131,8 @@ section { padding: 60px 0 20px; }
 }
 
 /* ── CHART GRID ── */
-.chart-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 28px;
-}
-.chart-grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 28px;
-}
+.chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+.chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-bottom: 28px; }
 .chart-full { margin-bottom: 28px; }
 
 .chart-card {
@@ -170,35 +160,14 @@ section { padding: 60px 0 20px; }
 .chart-card .vega-embed svg { max-width: 100%; }
 
 /* ── LEGEND STRIP ── */
-.legend-strip {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.85rem;
-  color: var(--muted);
-}
-.legend-dot {
-  width: 12px; height: 12px;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
+.legend-strip { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted); }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
 
-/* ── DIVIDER ── */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
-  margin: 20px 0;
-}
-
-/* ── CALLOUT ── */
+/* ── DIVIDER & CALLOUT ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
 .callout {
-  background: rgba(200, 75, 49, 0.05); /* Soft earthy red tint */
+  background: rgba(200, 75, 49, 0.05);
   border-left: 4px solid var(--ce);
   border-radius: 0 8px 8px 0;
   padding: 18px 24px;
@@ -222,28 +191,10 @@ section { padding: 60px 0 20px; }
   font-size: 1rem;
   line-height: 1.8;
 }
+.footer-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 2; }
+.footer-text a { color: var(--link); font-weight: 600; word-break: break-all; text-decoration: none; }
+.footer-text a:hover { color: var(--accent); text-decoration: underline; }
 
-.footer-content {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-.footer-text a {
-  color: var(--link);
-  font-weight: 600;
-  word-break: break-all;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-text a:hover {
-  color: var(--accent);
-  text-decoration: underline;
-}
-
-/* Subtle grass/hill effect in the background of the footer */
 .nature-footer::after {
   content: "";
   position: absolute;
