@@ -261,7 +261,7 @@ const groupStatusSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-group-stacked", groupStatusSpec, { actions: false });
+vegaEmbed("#chart-group-stacked", groupStatusSpec);
 
 // ── 2. Critical Endangered ratio ──
 const critRatioSpec = {
@@ -282,7 +282,7 @@ const critRatioSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-crit-ratio", critRatioSpec, { actions: false });
+vegaEmbed("#chart-crit-ratio", critRatioSpec);
 
 // ── 3. Donut chart ──
 const donutSpec = {
@@ -304,7 +304,7 @@ const donutSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-donut", donutSpec, { actions: false });
+vegaEmbed("#chart-donut", donutSpec);
 
 // ── 4. Status compare grouped bars ──
 const statusCompareSpec = {
@@ -329,7 +329,7 @@ const statusCompareSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-status-compare", statusCompareSpec, { actions: false });
+vegaEmbed("#chart-status-compare", statusCompareSpec);
 
 // ── 5. MAP ──
 const mapSpecFixed = {
@@ -378,7 +378,7 @@ const mapSpecFixed = {
   ],
   config: { ...baseConfig, view: { stroke: "transparent" } }
 };
-vegaEmbed("#chart-map", mapSpecFixed, { actions: false });
+vegaEmbed("#chart-map", mapSpecFixed);
 
 // ── 6. State species stacked bar ──
 const stateSpeciesSpec = {
@@ -405,7 +405,7 @@ const stateSpeciesSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-state-species", stateSpeciesSpec, { actions: false });
+vegaEmbed("#chart-state-species", stateSpeciesSpec);
 
 // ── 7. State communities stacked bar ──
 const stateCommSpec = {
@@ -432,7 +432,7 @@ const stateCommSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-state-comm", stateCommSpec, { actions: false });
+vegaEmbed("#chart-state-comm", stateCommSpec);
 
 // ── 8. Top communities horizontal bar ──
 const topCommSpec = {
@@ -458,7 +458,7 @@ const topCommSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-top-communities", topCommSpec, { actions: false });
+vegaEmbed("#chart-top-communities", topCommSpec);
 
 // ── 9. Community status donut ──
 const commStatusSpec = {
@@ -480,7 +480,7 @@ const commStatusSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-comm-status", commStatusSpec, { actions: false });
+vegaEmbed("#chart-comm-status", commStatusSpec);
 
 // ── 10. Scatter: species vs communities by state ──
 const scatterSpec = {
@@ -522,7 +522,7 @@ const scatterSpec = {
   ],
   config: baseConfig
 };
-vegaEmbed("#chart-scatter", scatterSpec, { actions: false });
+vegaEmbed("#chart-scatter", scatterSpec);
 
 // ── 11. Birds arc ──
 const birdsSpec = {
@@ -545,7 +545,7 @@ const birdsSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-birds", birdsSpec, { actions: false });
+vegaEmbed("#chart-birds", birdsSpec);
 
 // ── 12. Mammals arc ──
 const mammalsSpec = {
@@ -568,7 +568,7 @@ const mammalsSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-mammals", mammalsSpec, { actions: false });
+vegaEmbed("#chart-mammals", mammalsSpec);
 
 // ── 13. Frogs + Fish + Reptiles bar ──
 const otherGroupSpec = {
@@ -595,7 +595,5 @@ const otherGroupSpec = {
   },
   config: baseConfig
 };
-vegaEmbed("#chart-others", otherGroupSpec, { actions: false });
+vegaEmbed("#chart-others", otherGroupSpec);
 </script>
-</body>
-</html>
