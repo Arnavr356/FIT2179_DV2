@@ -439,7 +439,7 @@
     Geographic boundaries: Australian Bureau of Statistics / GeoJSON-Data (CC BY 4.0).<br /><br />
     <strong>Author:</strong> FIT2179 Data Visualisation 2, Monash University, Semester 1 2026 &nbsp;·&nbsp;
     <strong>Date:</strong> May 2026 &nbsp;·&nbsp;
-    AI tools (Claude, Anthropic) were used to assist in data processing, code generation, and grammar checking. All visualisation design decisions and analysis are the author's own.
+    
   </div>
 </footer>
 
@@ -548,99 +548,29 @@ vegaEmbed("#chart-donut", donutSpec, { actions: false });
 // ── 4. Status compare grouped bars ──
 const statusCompareSpec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  layer: [
-    {
-      data: { values: [
-        { type: "Species", status: "Critically Endangered", count: 453 },
-        { type: "Species", status: "Endangered", count: 860 },
-        { type: "Species", status: "Vulnerable", count: 785 },
-        { type: "Communities", status: "Critically Endangered", count: 47 },
-        { type: "Communities", status: "Endangered", count: 60 },
-        { type: "Communities", status: "Vulnerable", count: 2 }
-      ]},
-      mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
-      encoding: {
-        x: { field: "type", type: "nominal", axis: { title: null, labelAngle: 0 } },
-        y: { field: "count", type: "quantitative", axis: { title: "Count", grid: true } },
-        xOffset: { field: "status", type: "nominal", sort: STATUS_ORDER },
-        color: {
-          field: "status", type: "nominal",
-          scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-          legend: { title: "Status", orient: "top" }
-        },
-        tooltip: [
-          { field: "type", title: "Type" },
-          { field: "status", title: "Status" },
-          { field: "count", title: "Count" }
-        ]
-      }
-    }
-  ],
+  data: { url: "data/status_totals.json" },
   width: "container", height: 260,
+  mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
+  encoding: {
+    x: { field: "type", type: "nominal", axis: { title: null, labelAngle: 0 } },
+    y: { field: "count", type: "quantitative", axis: { title: "Count", grid: true } },
+    xOffset: { field: "status", type: "nominal", sort: STATUS_ORDER },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Status", orient: "top" }
+    },
+    tooltip: [
+      { field: "type", title: "Type" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
   config: baseConfig
 };
 vegaEmbed("#chart-status-compare", statusCompareSpec, { actions: false });
 
 // ── 5. MAP ──
-const mapSpec = {
-  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  width: "container", height: 460,
-  projection: { type: "mercator" },
-  layer: [
-    {
-      data: {
-        url: "data/australia-states.json",
-        format: { type: "topojson", feature: "features" }
-      },
-      mark: { type: "geoshape", stroke: "#0d1117", strokeWidth: 1 },
-      transform: [
-        {
-          lookup: "properties.state",
-          from: {
-            data: { url: "data/state_total.json" },
-            key: "state",
-            fields: ["total", "species", "communities", "critically_endangered"]
-          }
-        }
-      ],
-      encoding: {
-        color: {
-          field: "total", type: "quantitative",
-          scale: { scheme: "greens", reverse: false, domain: [0, 800] },
-          legend: { title: "Total threatened listings", orient: "right", gradientLength: 160 }
-        },
-        tooltip: [
-          { field: "properties.STATE_NAME", title: "State/Territory" },
-          { field: "total", title: "Total listings" },
-          { field: "species", title: "Threatened species" },
-          { field: "communities", title: "Threatened communities" },
-          { field: "critically_endangered", title: "Critically Endangered species" }
-        ]
-      }
-    },
-    {
-      data: { values: [
-        { state: "NSW", lon: 146.5, lat: -32.5 },
-        { state: "VIC", lon: 144.5, lat: -37 },
-        { state: "QLD", lon: 144.5, lat: -22 },
-        { state: "SA",  lon: 135,   lat: -30 },
-        { state: "WA",  lon: 122,   lat: -27 },
-        { state: "TAS", lon: 146.5, lat: -42 },
-        { state: "NT",  lon: 133.5, lat: -19 },
-        { state: "ACT", lon: 149.1, lat: -35.5 }
-      ]},
-      mark: { type: "text", fontSize: 11, fontWeight: "bold", fill: TEXT, opacity: 0.8 },
-      encoding: {
-        longitude: { field: "lon", type: "quantitative" },
-        latitude:  { field: "lat", type: "quantitative" },
-        text: { field: "state", type: "nominal" }
-      }
-    }
-  ],
-  config: { ...baseConfig, view: { stroke: "transparent" } }
-};
-
-// The GeoJSON from the URL is already GeoJSON not TopoJSON — fix spec
 const mapSpecFixed = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
   width: "container", height: 460,
@@ -675,16 +605,7 @@ const mapSpecFixed = {
       }
     },
     {
-      data: { values: [
-        { state: "NSW", lon: 146.5, lat: -32.5, total: 781 },
-        { state: "VIC", lon: 144.5, lat: -37.0, total: 365 },
-        { state: "QLD", lon: 144.5, lat: -22.0, total: 597 },
-        { state: "SA",  lon: 135.0, lat: -30.0, total: 311 },
-        { state: "WA",  lon: 122.0, lat: -27.0, total: 606 },
-        { state: "TAS", lon: 146.5, lat: -42.0, total: 222 },
-        { state: "NT",  lon: 133.5, lat: -19.0, total: 144 },
-        { state: "ACT", lon: 149.3, lat: -35.5, total: 74  }
-      ]},
+      data: { url: "data/map_labels.json" },
       mark: { type: "text", fontSize: 11, fontWeight: "600", opacity: 0.95 },
       encoding: {
         longitude: { field: "lon", type: "quantitative" },
@@ -781,11 +702,7 @@ vegaEmbed("#chart-top-communities", topCommSpec, { actions: false });
 // ── 9. Community status donut ──
 const commStatusSpec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { values: [
-    { status: "Critically Endangered", count: 47 },
-    { status: "Endangered", count: 60 },
-    { status: "Vulnerable", count: 2 }
-  ]},
+  data: { url: "data/comm_status.json" },
   width: "container", height: 260,
   mark: { type: "arc", innerRadius: 65, outerRadius: 110, stroke: BG, strokeWidth: 2 },
   encoding: {
@@ -846,55 +763,57 @@ const scatterSpec = {
 };
 vegaEmbed("#chart-scatter", scatterSpec, { actions: false });
 
-// ── 11–13. Individual animal group arc charts ──
-function animalArcSpec(values, title) {
-  return {
-    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    data: { values },
-    width: "container", height: 200,
-    mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: BG, strokeWidth: 1.5 },
-    encoding: {
-      theta: { field: "count", type: "quantitative" },
-      color: {
-        field: "status", type: "nominal",
-        scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-        legend: { title: null, orient: "bottom", labelFontSize: 10 }
-      },
-      tooltip: [
-        { field: "status", title: "Status" },
-        { field: "count", title: "Count" }
-      ]
+// ── 11. Birds arc ──
+const birdsSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/animal_groups.json" },
+  transform: [{ filter: "datum.group === 'Birds'" }],
+  width: "container", height: 200,
+  mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: BG, strokeWidth: 1.5 },
+  encoding: {
+    theta: { field: "count", type: "quantitative" },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: null, orient: "bottom", labelFontSize: 10 }
     },
-    config: baseConfig
-  };
-}
+    tooltip: [
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-birds", birdsSpec, { actions: false });
 
-vegaEmbed("#chart-birds", animalArcSpec([
-  { status: "Critically Endangered", count: 18 },
-  { status: "Endangered", count: 69 },
-  { status: "Vulnerable", count: 77 }
-]), { actions: false });
+// ── 12. Mammals arc ──
+const mammalsSpec = {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/animal_groups.json" },
+  transform: [{ filter: "datum.group === 'Mammals'" }],
+  width: "container", height: 200,
+  mark: { type: "arc", innerRadius: 50, outerRadius: 88, stroke: BG, strokeWidth: 1.5 },
+  encoding: {
+    theta: { field: "count", type: "quantitative" },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: null, orient: "bottom", labelFontSize: 10 }
+    },
+    tooltip: [
+      { field: "status", title: "Status" },
+      { field: "count", title: "Count" }
+    ]
+  },
+  config: baseConfig
+};
+vegaEmbed("#chart-mammals", mammalsSpec, { actions: false });
 
-vegaEmbed("#chart-mammals", animalArcSpec([
-  { status: "Critically Endangered", count: 9 },
-  { status: "Endangered", count: 47 },
-  { status: "Vulnerable", count: 57 }
-]), { actions: false });
-
-// Frogs + Fish + Reptiles combined bar
+// ── 13. Frogs + Fish + Reptiles bar ──
 const otherGroupSpec = {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { values: [
-    { group: "Frogs",    status: "Critically Endangered", count: 18 },
-    { group: "Frogs",    status: "Endangered",            count: 15 },
-    { group: "Frogs",    status: "Vulnerable",            count: 16 },
-    { group: "Fish",     status: "Critically Endangered", count: 28 },
-    { group: "Fish",     status: "Endangered",            count: 30 },
-    { group: "Fish",     status: "Vulnerable",            count: 21 },
-    { group: "Reptiles", status: "Critically Endangered", count: 27 },
-    { group: "Reptiles", status: "Endangered",            count: 40 },
-    { group: "Reptiles", status: "Vulnerable",            count: 34 }
-  ]},
+  data: { url: "data/animal_groups.json" },
+  transform: [{ filter: "datum.group === 'Frogs' || datum.group === 'Fish' || datum.group === 'Reptiles'" }],
   width: "container", height: 200,
   mark: { type: "bar", cornerRadiusTopLeft: 2, cornerRadiusTopRight: 2 },
   encoding: {

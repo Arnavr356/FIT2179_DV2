@@ -1,0 +1,32 @@
+[
+  {
+    "type": "Species",
+    "status": "Critically Endangered",
+    "count": 453
+  },
+  {
+    "type": "Communities",
+    "status": "Critically Endangered",
+    "count": 49
+  },
+  {
+    "type": "Species",
+    "status": "Endangered",
+    "count": 860
+  },
+  {
+    "type": "Communities",
+    "status": "Endangered",
+    "count": 60
+  },
+  {
+    "type": "Species",
+    "status": "Vulnerable",
+    "count": 785
+  },
+  {
+    "type": "Communities",
+    "status": "Vulnerable",
+    "count": 2
+  }
+]
