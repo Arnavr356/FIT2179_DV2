@@ -536,7 +536,7 @@ const birdsSpec = {
     color: {
       field: "status", type: "nominal",
       scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-      legend: { title: null, orient: "bottom", labelFontSize: 10 }
+      legend: { title: null, orient: "bottom", labelFontSize: 10, columns: 1, symbolLimit: 3 }
     },
     tooltip: [
       { field: "status", title: "Status" },
@@ -559,7 +559,7 @@ const mammalsSpec = {
     color: {
       field: "status", type: "nominal",
       scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-      legend: { title: null, orient: "bottom", labelFontSize: 10 }
+      legend: { title: null, orient: "bottom", labelFontSize: 10, columns: 1, symbolLimit: 3 }
     },
     tooltip: [
       { field: "status", title: "Status" },
@@ -584,7 +584,7 @@ const otherGroupSpec = {
     color: {
       field: "status", type: "nominal",
       scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-      legend: { title: null, orient: "bottom", labelFontSize: 10 }
+      legend: { title: null, orient: "bottom", labelFontSize: 10, columns: 1, symbolLimit: 3 }
     },
     order: { field: "status", sort: "ascending" },
     tooltip: [
@@ -597,3 +597,5 @@ const otherGroupSpec = {
 };
 vegaEmbed("#chart-others", otherGroupSpec);
 </script>
+</body>
+</html>
