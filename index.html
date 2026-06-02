@@ -215,14 +215,7 @@
 
   <div class="chart-grid-2">
     <div class="chart-card">
-      <h3>Birds: 164 Threatened Species</h3>
-      <p class="chart-desc">The most threatened vertebrate group by count. While most are endangered or vulnerable, 18 bird species are already critically endangered, including the Orange-bellied Parrot and Swift Parrot.</p>
-      <div id="chart-birds"></div>
-    </div>
-    <div class="chart-card">
-      <h3>Mammals: 113 Threatened Species</h3>
-      <p class="chart-desc">Australia has the world's worst mammal extinction record. Mammals are skewed toward endangered and vulnerable, but represent long-established decline — many species have already been lost in the past 200 years.</p>
-      <div id="chart-mammals"></div>
+      
     </div>
   </div>
 
@@ -763,7 +756,7 @@ vegaEmbed("#chart-scatter", {
     contains: "padding"
   },
 
-  width: 430,
+  width: 420,
   height: 360,
 
   padding: {
@@ -916,72 +909,80 @@ vegaEmbed("#chart-vertebrate-norm", {
   config: baseConfig
 }, { actions: false });
 
-// CHART 13 — Donut with labels: Birds
-vegaEmbed("#chart-birds", {
-  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { url: "data/animal_groups.json" },
-  transform: [{ filter: "datum.group === 'Birds'" }],
-  width: "container", height: 220,
-  layer: [
-    {
-      mark: { type: "arc", innerRadius: 55, outerRadius: 95, stroke: "#ffffff", strokeWidth: 1.5 },
-      encoding: {
-        theta: { field: "count", type: "quantitative" },
-        color: {
-          field: "status", type: "nominal",
-          scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-          legend: { title: null, orient: "bottom", labelFontSize: 11, columns: 1 }
-        },
-        tooltip: [
-          { field: "status", title: "Status" },
-          { field: "count", title: "Species count" }
-        ]
-      }
-    },
-    {
-      mark: { type: "text", radius: 78, fontSize: 12, fontWeight: "600" },
-      encoding: {
-        theta: { field: "count", type: "quantitative", stack: true },
-        text: { field: "count", type: "quantitative" },
-        color: { value: "#ffffff" }
-      }
-    }
-  ],
-  config: baseConfig
-}, { actions: false });
+// CHART 15 — Mirrored comparison: Birds vs Mammals
 
-// CHART 14 — Donut with labels: Mammals
-vegaEmbed("#chart-mammals", {
+vegaEmbed("#chart-bird-mammal-compare", {
+
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { url: "data/animal_groups.json" },
-  transform: [{ filter: "datum.group === 'Mammals'" }],
-  width: "container", height: 220,
-  layer: [
+
+  width: "container",
+  height: 260,
+
+  data: {
+    url: "data/animal_groups.json"
+  },
+
+  transform: [
     {
-      mark: { type: "arc", innerRadius: 55, outerRadius: 95, stroke: "#ffffff", strokeWidth: 1.5 },
-      encoding: {
-        theta: { field: "count", type: "quantitative" },
-        color: {
-          field: "status", type: "nominal",
-          scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-          legend: { title: null, orient: "bottom", labelFontSize: 11, columns: 1 }
-        },
-        tooltip: [
-          { field: "status", title: "Status" },
-          { field: "count", title: "Species count" }
-        ]
-      }
+      filter:
+        "datum.group === 'Birds' || datum.group === 'Mammals'"
     },
     {
-      mark: { type: "text", radius: 78, fontSize: 12, fontWeight: "600" },
-      encoding: {
-        theta: { field: "count", type: "quantitative", stack: true },
-        text: { field: "count", type: "quantitative" },
-        color: { value: "#ffffff" }
-      }
+      calculate:
+        "datum.group === 'Birds' ? datum.count : -datum.count",
+      as: "signed_count"
     }
   ],
+
+  mark: {
+    type: "bar",
+    cornerRadiusEnd: 4
+  },
+
+  encoding: {
+
+    y: {
+      field: "status",
+      type: "nominal",
+      sort: STATUS_ORDER,
+      axis: {
+        title: null,
+        labelFontSize: 12
+      }
+    },
+
+    x: {
+      field: "signed_count",
+      type: "quantitative",
+
+      axis: {
+        title: "← Mammals | Birds →",
+        grid: true,
+        labelExpr: "abs(datum.value)"
+      }
+    },
+
+    color: {
+      field: "status",
+      type: "nominal",
+
+      scale: {
+        domain: STATUS_ORDER,
+        range: [CE, EN, VU]
+      },
+
+      legend: null
+    },
+
+    tooltip: [
+      { field: "group", title: "Group" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Species count" }
+    ]
+  },
+
   config: baseConfig
+
 }, { actions: false });
 
 // CHART 15 — Grouped bar: Frogs, Fish, Reptiles
