@@ -651,24 +651,37 @@ vegaEmbed("#chart-top-communities", {
 // CHART 10 — Donut with count labels: community status breakdown
 
 vegaEmbed("#chart-comm-status", {
+
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
 
-  data: { url: "data/comm_status.json" },
-
-  width: 360,
-  height: 320,
+  background: BG,
 
   autosize: {
-    type: "fit",
+    type: "pad",
     contains: "padding"
   },
 
+  width: 420,
+  height: 360,
+
+  padding: {
+    left: 20,
+    right: 20,
+    top: 20,
+    bottom: 80
+  },
+
+  data: {
+    url: "data/comm_status.json"
+  },
+
   layer: [
+
     {
       mark: {
         type: "arc",
-        innerRadius: 70,
-        outerRadius: 115,
+        innerRadius: 85,
+        outerRadius: 135,
         stroke: "#ffffff",
         strokeWidth: 2
       },
@@ -681,6 +694,7 @@ vegaEmbed("#chart-comm-status", {
         },
 
         color: {
+
           field: "status",
           type: "nominal",
 
@@ -691,7 +705,12 @@ vegaEmbed("#chart-comm-status", {
 
           legend: {
             title: "Threat status",
-            orient: "bottom"
+            orient: "bottom",
+            direction: "horizontal",
+            columns: 3,
+            labelFontSize: 12,
+            titleFontSize: 13,
+            offset: 12
           }
         },
 
@@ -705,12 +724,14 @@ vegaEmbed("#chart-comm-status", {
     {
       mark: {
         type: "text",
-        radius: 95,
-        fontSize: 14,
-        fontWeight: "700"
+        radius: 112,
+        fontSize: 15,
+        fontWeight: "700",
+        fill: "#ffffff"
       },
 
       encoding: {
+
         theta: {
           field: "count",
           type: "quantitative",
@@ -720,10 +741,6 @@ vegaEmbed("#chart-comm-status", {
         text: {
           field: "count",
           type: "quantitative"
-        },
-
-        color: {
-          value: "#ffffff"
         }
       }
     }
@@ -739,14 +756,25 @@ vegaEmbed("#chart-scatter", {
 
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
 
-  data: { url: "data/state_total.json" },
-
-  width: 430,
-  height: 320,
+  background: BG,
 
   autosize: {
-    type: "fit",
+    type: "pad",
     contains: "padding"
+  },
+
+  width: 500,
+  height: 360,
+
+  padding: {
+    left: 10,
+    right: 140,
+    top: 20,
+    bottom: 20
+  },
+
+  data: {
+    url: "data/state_total.json"
   },
 
   layer: [
@@ -754,7 +782,7 @@ vegaEmbed("#chart-scatter", {
     {
       mark: {
         type: "circle",
-        opacity: 0.85
+        opacity: 0.88
       },
 
       encoding: {
@@ -791,7 +819,9 @@ vegaEmbed("#chart-scatter", {
 
           legend: {
             title: "Critically Endangered species",
-            orient: "right"
+            orient: "right",
+            titleFontSize: 13,
+            labelFontSize: 12
           }
         },
 
@@ -801,11 +831,14 @@ vegaEmbed("#chart-scatter", {
           type: "quantitative",
 
           scale: {
-            range: [80, 600]
+            range: [120, 1100]
           },
 
           legend: {
-            title: "Total listings"
+            title: "Total listings",
+            orient: "right",
+            titleFontSize: 13,
+            labelFontSize: 12
           }
         },
 
@@ -823,8 +856,9 @@ vegaEmbed("#chart-scatter", {
       mark: {
         type: "text",
         dy: -18,
-        fontSize: 11,
-        fontWeight: "700"
+        fontSize: 12,
+        fontWeight: "700",
+        color: "#2c3e2d"
       },
 
       encoding: {
@@ -840,12 +874,7 @@ vegaEmbed("#chart-scatter", {
         },
 
         text: {
-          field: "state",
-          type: "nominal"
-        },
-
-        color: {
-          value: TEXT
+          field: "state"
         }
       }
     }
