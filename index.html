@@ -213,12 +213,6 @@
     <p class="chart-annotation">⚠ <strong>Frogs</strong> and <strong>Fish</strong> have the highest proportion of critically endangered listings among vertebrates — yet they receive a fraction of the conservation spotlight given to mammals and birds.</p>
   </div>
 
-  <div class="chart-grid-2">
-    <div class="chart-card">
-      
-    </div>
-  </div>
-
   <div class="chart-full chart-card">
     <h3>Frogs, Fish &amp; Reptiles — Count by Status</h3>
     <p class="chart-desc">Grouped together, frogs, fish and reptiles account for over 230 threatened species. Fish in particular have an alarmingly high proportion of critical listings, driven by habitat loss, water extraction, and invasive species in Australian rivers and streams.</p>
@@ -985,30 +979,121 @@ vegaEmbed("#chart-bird-mammal-compare", {
 
 }, { actions: false });
 
-// CHART 15 — Grouped bar: Frogs, Fish, Reptiles
-vegaEmbed("#chart-others", {
+// CHART 15 — Waffle chart: critically endangered share
+
+const waffleData = [];
+
+[
+  { group: "Fish", critical: 35 },
+  { group: "Frogs", critical: 37 },
+  { group: "Reptiles", critical: 27 }
+].forEach(g => {
+
+  for (let i = 0; i < 100; i++) {
+
+    waffleData.push({
+
+      group: g.group,
+
+      row: Math.floor(i / 10),
+
+      col: i % 10,
+
+      status: i < g.critical
+        ? "Critically Endangered"
+        : "Other Threatened"
+
+    });
+
+  }
+
+});
+
+vegaEmbed("#chart-waffle", {
+
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { url: "data/animal_groups.json" },
-  transform: [{ filter: "datum.group === 'Frogs' || datum.group === 'Fish' || datum.group === 'Reptiles'" }],
-  width: "container", height: 280,
-  mark: { type: "bar", cornerRadiusTopLeft: 3, cornerRadiusTopRight: 3 },
-  encoding: {
-    x: { field: "group", type: "nominal", axis: { title: null, labelAngle: 0, labelFontSize: 13 } },
-    xOffset: { field: "status", type: "nominal", sort: STATUS_ORDER },
-    y: { field: "count", type: "quantitative", axis: { title: "Species count", grid: true } },
-    color: {
-      field: "status", type: "nominal",
-      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-      legend: { title: "Threat status", orient: "top" }
-    },
-    tooltip: [
-      { field: "group", title: "Group" },
-      { field: "status", title: "Status" },
-      { field: "count", title: "Species count" }
-    ]
+
+  background: null,
+
+  data: {
+    values: waffleData
   },
+
+  facet: {
+    field: "group",
+    type: "nominal",
+    columns: 3,
+    header: {
+      title: null,
+      labelFontSize: 16,
+      labelColor: TEXT,
+      labelFontWeight: 700
+    }
+  },
+
+  spec: {
+
+    width: 170,
+    height: 170,
+
+    mark: {
+      type: "square",
+      size: 230,
+      stroke: "#f5f1e8",
+      strokeWidth: 1
+    },
+
+    encoding: {
+
+      x: {
+        field: "col",
+        type: "ordinal",
+        axis: null
+      },
+
+      y: {
+        field: "row",
+        type: "ordinal",
+        sort: "descending",
+        axis: null
+      },
+
+      color: {
+
+        field: "status",
+        type: "nominal",
+
+        scale: {
+          domain: [
+            "Critically Endangered",
+            "Other Threatened"
+          ],
+
+          range: [
+            CE,
+            "#eadfcb"
+          ]
+        },
+
+        legend: {
+          title: null,
+          orient: "bottom"
+        }
+      },
+
+      tooltip: [
+        { field: "group", title: "Animal group" },
+        { field: "status", title: "Status" }
+      ]
+    }
+  },
+
+  resolve: {
+    scale: {
+      color: "shared"
+    }
+  },
+
   config: baseConfig
+
 }, { actions: false });
-</script>
-</body>
-</html>
