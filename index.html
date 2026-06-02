@@ -738,12 +738,7 @@ vegaEmbed("#chart-scatter", {
 
   background: BG,
 
-  autosize: {
-    type: "pad",
-    contains: "padding"
-  },
-
-  width: "container",
+  width: 520,
   height: 360,
 
   data: {
@@ -825,17 +820,26 @@ vegaEmbed("#chart-scatter", {
         },
 
         opacity: {
-          condition: { selection: "highlight", value: 1 },
+          condition: {
+            selection: "highlight",
+            value: 1
+          },
           value: 0.85
         },
 
         stroke: {
-          condition: { selection: "highlight", value: "#1f1f1f" },
+          condition: {
+            selection: "highlight",
+            value: "#1f1f1f"
+          },
           value: null
         },
 
         strokeWidth: {
-          condition: { selection: "highlight", value: 2 },
+          condition: {
+            selection: "highlight",
+            value: 2
+          },
           value: 0
         },
 
@@ -852,10 +856,9 @@ vegaEmbed("#chart-scatter", {
     {
       mark: {
         type: "text",
-        interactive: false,
         dy: -12,
         fontSize: 12,
-        fontWeight: "700",
+        fontWeight: "bold",
         color: "#2c3e2d"
       },
 
@@ -873,6 +876,14 @@ vegaEmbed("#chart-scatter", {
 
         text: {
           field: "state"
+        },
+
+        opacity: {
+          condition: {
+            selection: "highlight",
+            value: 1
+          },
+          value: 1
         }
       }
     }
