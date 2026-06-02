@@ -730,13 +730,15 @@ vegaEmbed("#chart-comm-status", {
 
 }, { actions: false });
 
-// CHART 11 — Bubble scatter: species vs communities by state
-
 vegaEmbed("#chart-scatter", {
-
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
 
-  background: null,
+  background: BG,
+
+  autosize: {
+    type: "fit",
+    contains: "padding"
+  },
 
   width: "container",
   height: 360,
@@ -747,7 +749,7 @@ vegaEmbed("#chart-scatter", {
 
   params: [
     {
-      name: "hover",
+      name: "highlight",
       select: {
         type: "point",
         fields: ["state"],
@@ -761,10 +763,7 @@ vegaEmbed("#chart-scatter", {
 
     {
       mark: {
-        type: "circle",
-        opacity: 0.82,
-        stroke: "#ffffff",
-        strokeWidth: 1.2
+        type: "circle"
       },
 
       encoding: {
@@ -772,32 +771,17 @@ vegaEmbed("#chart-scatter", {
         x: {
           field: "species",
           type: "quantitative",
-
-          scale: {
-            domain: [0, 800]
-          },
-
           axis: {
             title: "Threatened species count",
-            titleFontSize: 14,
-            labelFontSize: 11,
-            grid: true,
-            tickCount: 8
+            grid: true
           }
         },
 
         y: {
           field: "communities",
           type: "quantitative",
-
-          scale: {
-            domain: [0, 65]
-          },
-
           axis: {
             title: "Threatened communities count",
-            titleFontSize: 14,
-            labelFontSize: 11,
             grid: true
           }
         },
@@ -805,53 +789,41 @@ vegaEmbed("#chart-scatter", {
         size: {
           field: "total",
           type: "quantitative",
-
           scale: {
-            range: [120, 900]
-          },
-
-          legend: {
-            title: "Total listings",
-            orient: "right",
-            titleFontSize: 12,
-            labelFontSize: 11,
-            symbolStrokeColor: "#666",
-            offset: 12
+            range: [100, 900]
           }
         },
 
         color: {
           field: "critically_endangered",
           type: "quantitative",
-
           scale: {
-            scheme: "reds",
-            domain: [0, 160]
-          },
-
-          legend: {
-            title: "Critically Endangered",
-            orient: "right",
-            titleFontSize: 12,
-            labelFontSize: 11,
-            gradientLength: 140
+            scheme: "reds"
           }
         },
 
         opacity: {
           condition: {
-            param: "hover",
+            param: "highlight",
             value: 1
           },
           value: 0.8
         },
 
+        stroke: {
+          condition: {
+            param: "highlight",
+            value: "#1f1f1f"
+          },
+          value: null
+        },
+
         strokeWidth: {
           condition: {
-            param: "hover",
-            value: 2.5
+            param: "highlight",
+            value: 2
           },
-          value: 1.2
+          value: 0
         },
 
         tooltip: [
@@ -867,10 +839,10 @@ vegaEmbed("#chart-scatter", {
     {
       mark: {
         type: "text",
-        dy: -14,
+        dy: -10,
         fontSize: 11,
-        fontWeight: "600",
-        color: "#2f3d2f"
+        fontWeight: "bold",
+        color: "#2c3e2d"
       },
 
       encoding: {
@@ -892,27 +864,10 @@ vegaEmbed("#chart-scatter", {
     }
   ],
 
-  config: {
-
-    view: {
-      stroke: "#d9d9d9"
-    },
-
-    axis: {
-      gridColor: "#e6e3dc",
-      domainColor: "#999",
-      tickColor: "#999",
-      labelColor: "#556555",
-      titleColor: "#2c3e2d"
-    },
-
-    legend: {
-      labelColor: "#556555",
-      titleColor: "#2c3e2d"
-    }
-  }
+  config: baseConfig
 
 }, { actions: false });
+
 // CHART 12 — Normalised 100% stacked bar: vertebrate threat composition (NEW)
 vegaEmbed("#chart-vertebrate-norm", {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
