@@ -736,42 +736,40 @@ vegaEmbed("#chart-scatter", {
 
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
 
-  background: BG,
+  background: null,
 
   autosize: {
-    type: "pad",
+    type: "fit",
     contains: "padding"
   },
 
-  width: 560,
-  height: 430,
-
-  padding: {
-    left: 10,
-    right: 40,
-    top: 20,
-    bottom: 20
-  },
+  width: 520,
+  height: 420,
 
   data: {
     url: "data/state_total.json"
   },
 
-  selection: {
-    highlight: {
-      type: "single",
-      fields: ["state"],
-      on: "mouseover",
-      nearest: false,
-      empty: "none"
+  params: [
+    {
+      name: "highlight",
+      select: {
+        type: "point",
+        fields: ["state"],
+        on: "mouseover",
+        clear: "mouseout"
+      }
     }
-  },
+  ],
 
   layer: [
 
     {
       mark: {
-        type: "circle"
+        type: "circle",
+        stroke: "#ffffff",
+        strokeWidth: 1.5,
+        opacity: 0.9
       },
 
       encoding: {
@@ -782,7 +780,10 @@ vegaEmbed("#chart-scatter", {
 
           axis: {
             title: "Threatened species count",
-            grid: true
+            titleFontSize: 15,
+            labelFontSize: 12,
+            grid: true,
+            tickCount: 8
           }
         },
 
@@ -792,12 +793,30 @@ vegaEmbed("#chart-scatter", {
 
           axis: {
             title: "Threatened communities count",
+            titleFontSize: 15,
+            labelFontSize: 12,
             grid: true
           }
         },
 
-        color: {
+        size: {
+          field: "total",
+          type: "quantitative",
 
+          scale: {
+            range: [120, 1400]
+          },
+
+          legend: {
+            title: "Total listings",
+            orient: "right",
+            titleFontSize: 14,
+            labelFontSize: 12,
+            symbolStrokeColor: "#444"
+          }
+        },
+
+        color: {
           field: "critically_endangered",
           type: "quantitative",
 
@@ -809,41 +828,26 @@ vegaEmbed("#chart-scatter", {
           legend: {
             title: "Critically Endangered species",
             orient: "right",
-            titleFontSize: 13,
-            labelFontSize: 12
-          }
-        },
-
-        size: {
-
-          field: "total",
-          type: "quantitative",
-
-          scale: {
-            range: [80, 700]
-          },
-
-          legend: {
-            title: "Total listings",
-            orient: "right",
-            titleFontSize: 13,
-            labelFontSize: 12
+            titleFontSize: 14,
+            labelFontSize: 12,
+            gradientLength: 180
           }
         },
 
         opacity: {
-          condition: { selection: "highlight", value: 1 },
-          value: 0.85
-        },
-
-        stroke: {
-          condition: { selection: "highlight", value: "#1f1f1f" },
-          value: null
+          condition: {
+            param: "highlight",
+            value: 1
+          },
+          value: 0.75
         },
 
         strokeWidth: {
-          condition: { selection: "highlight", value: 2 },
-          value: 0
+          condition: {
+            param: "highlight",
+            value: 3
+          },
+          value: 1.5
         },
 
         tooltip: [
@@ -859,11 +863,10 @@ vegaEmbed("#chart-scatter", {
     {
       mark: {
         type: "text",
-        interactive: false,
-        dy: -12,
-        fontSize: 12,
-        fontWeight: "700",
-        color: "#2c3e2d"
+        dy: -18,
+        fontSize: 15,
+        fontWeight: "bold",
+        color: "#243224"
       },
 
       encoding: {
@@ -885,7 +888,24 @@ vegaEmbed("#chart-scatter", {
     }
   ],
 
-  config: baseConfig
+  config: {
+    view: {
+      stroke: null
+    },
+
+    axis: {
+      gridColor: "#d8d8d8",
+      domainColor: "#888",
+      tickColor: "#888",
+      labelColor: "#425342",
+      titleColor: "#2c3e2d"
+    },
+
+    legend: {
+      labelColor: "#425342",
+      titleColor: "#2c3e2d"
+    }
+  }
 
 }, { actions: false });
 
