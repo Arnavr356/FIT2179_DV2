@@ -320,6 +320,7 @@ section {
 
 .chart-full {
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .chart-card {
@@ -623,4 +624,10 @@ section {
 #chart-scatter .vega-embed,
 #chart-comm-status .vega-embed {
   width: 100%;
+}
+
+#chart-waffle {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
