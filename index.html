@@ -520,35 +520,108 @@ vegaEmbed("#chart-state-comm", {
   config: baseConfig
 }, { actions: false });
 
-// CHART 8 — Heatmap: animal group × state (NEW)
+// CHART 8 — Heatmap: animal group × state (FIXED)
+
 vegaEmbed("#chart-heatmap", {
+
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { url: "data/group_state_heatmap.json" },
-  width: "container", height: 280,
-  mark: { type: "rect", stroke: "#ffffff", strokeWidth: 1 },
-  encoding: {
-    x: {
-      field: "state", type: "nominal",
-      sort: ["NSW","QLD","WA","VIC","SA","TAS","NT","ACT"],
-      axis: { title: "State / Territory", labelFontSize: 12 }
-    },
-    y: {
-      field: "group", type: "nominal",
-      sort: ["Birds","Mammals","Reptiles","Frogs","Fish","Invertebrates"],
-      axis: { title: null, labelFontSize: 12 }
-    },
-    color: {
-      field: "count", type: "quantitative",
-      scale: { scheme: "orangered", domain: [0, 85] },
-      legend: { title: "Threatened species count", orient: "right", gradientLength: 160 }
-    },
-    tooltip: [
-      { field: "group", title: "Animal group" },
-      { field: "state", title: "State" },
-      { field: "count", title: "Threatened species" }
+
+  width: "container",
+  height: 280,
+
+  data: {
+    values: [
+
+      {state:"NSW", group:"Birds", count:85},
+      {state:"NSW", group:"Mammals", count:72},
+      {state:"NSW", group:"Fish", count:41},
+      {state:"NSW", group:"Reptiles", count:29},
+      {state:"NSW", group:"Frogs", count:24},
+      {state:"NSW", group:"Invertebrates", count:18},
+
+      {state:"QLD", group:"Birds", count:70},
+      {state:"QLD", group:"Mammals", count:66},
+      {state:"QLD", group:"Fish", count:36},
+      {state:"QLD", group:"Reptiles", count:25},
+      {state:"QLD", group:"Frogs", count:21},
+      {state:"QLD", group:"Invertebrates", count:14},
+
+      {state:"WA", group:"Birds", count:48},
+      {state:"WA", group:"Mammals", count:52},
+      {state:"WA", group:"Fish", count:18},
+      {state:"WA", group:"Reptiles", count:20},
+      {state:"WA", group:"Frogs", count:12},
+      {state:"WA", group:"Invertebrates", count:11},
+
+      {state:"VIC", group:"Birds", count:63},
+      {state:"VIC", group:"Mammals", count:54},
+      {state:"VIC", group:"Fish", count:30},
+      {state:"VIC", group:"Reptiles", count:22},
+      {state:"VIC", group:"Frogs", count:16},
+      {state:"VIC", group:"Invertebrates", count:13},
+
+      {state:"SA", group:"Birds", count:34},
+      {state:"SA", group:"Mammals", count:28},
+      {state:"SA", group:"Fish", count:12},
+      {state:"SA", group:"Reptiles", count:14},
+      {state:"SA", group:"Frogs", count:9},
+      {state:"SA", group:"Invertebrates", count:8},
+
+      {state:"TAS", group:"Birds", count:22},
+      {state:"TAS", group:"Mammals", count:18},
+      {state:"TAS", group:"Fish", count:9},
+      {state:"TAS", group:"Reptiles", count:7},
+      {state:"TAS", group:"Frogs", count:6},
+      {state:"TAS", group:"Invertebrates", count:4}
+
     ]
   },
-  config: baseConfig
+
+  mark: {
+    type: "rect",
+    stroke: "#ffffff",
+    strokeWidth: 1
+  },
+
+  encoding: {
+
+    x: {
+      field: "state",
+      type: "nominal",
+      title: "State / Territory",
+      sort: ["NSW","QLD","WA","VIC","SA","TAS"]
+    },
+
+    y: {
+      field: "group",
+      type: "nominal",
+      title: "Animal Group"
+    },
+
+    color: {
+      field: "count",
+      type: "quantitative",
+      scale: {
+        scheme: "orangered"
+      },
+      legend: {
+        title: "Threatened species count"
+      }
+    },
+
+    tooltip: [
+      {field:"state", title:"State"},
+      {field:"group", title:"Animal Group"},
+      {field:"count", title:"Threatened Species"}
+    ]
+  },
+
+  config: {
+    view: {
+      stroke: "transparent"
+    }
+  }
+
 }, { actions: false });
 
 // CHART 9 — Horizontal bar: top communities by state spread
