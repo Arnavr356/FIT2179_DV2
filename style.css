@@ -610,3 +610,29 @@ section {
     transform: translateY(0);
   }
 }
+
+.chart-grid-2 {
+  align-items: start;
+}
+
+.chart-grid-2 .chart-card {
+  min-width: 0;
+}
+
+#chart-scatter {
+  overflow-x: auto;
+}
+
+#chart-scatter .vega-embed {
+  min-width: 700px;
+}
+
+/* ══════════ SCATTER FIX ══════════ */
+
+#chart-scatter {
+  overflow-x: auto;
+}
+
+#chart-scatter .vega-embed {
+  min-width: 820px;
+}
