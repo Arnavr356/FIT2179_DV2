@@ -745,15 +745,17 @@ vegaEmbed("#chart-scatter", {
     url: "data/state_total.json"
   },
 
-  selection: {
-    highlight: {
-      type: "single",
+  params: [
+  {
+    name: "highlight",
+    select: {
+      type: "point",
       fields: ["state"],
       on: "mouseover",
-      nearest: false,
-      empty: "none"
+      clear: "mouseout"
     }
-  },
+  }
+],
 
   layer: [
 
@@ -819,29 +821,29 @@ vegaEmbed("#chart-scatter", {
           }
         },
 
-        opacity: {
-          condition: {
-            selection: "highlight",
-            value: 1
-          },
-          value: 0.85
-        },
+       opacity: {
+  condition: {
+    param: "highlight",
+    value: 1
+  },
+  value: 0.85
+},
 
         stroke: {
-          condition: {
-            selection: "highlight",
-            value: "#1f1f1f"
-          },
-          value: null
-        },
+  condition: {
+    param: "highlight",
+    value: "#1f1f1f"
+  },
+  value: null
+},
 
         strokeWidth: {
-          condition: {
-            selection: "highlight",
-            value: 2
-          },
-          value: 0
-        },
+  condition: {
+    param: "highlight",
+    value: 2
+  },
+  value: 0
+},
 
         tooltip: [
           { field: "state", title: "State" },
