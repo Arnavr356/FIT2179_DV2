@@ -1,85 +1,14 @@
 [
-  {
-    "community": "Subtropical and Temperate Coastal Saltmarsh",
-    "full_name": "Subtropical and Temperate Coastal Saltmarsh",
-    "status": "Vulnerable",
-    "states": 6
-  },
-
-  {
-    "community": "White Box-Yellow Box-Blakely's Red Gum Grassy Woodland …",
-    "full_name": "White Box-Yellow Box-Blakely's Red Gum Grassy Woodland and Derived Native Grassland",
-    "status": "Critically Endangered",
-    "states": 5
-  },
-
-  {
-    "community": "Alpine Sphagnum Bogs and Associated Fens",
-    "full_name": "Alpine Sphagnum Bogs and Associated Fens",
-    "status": "Endangered",
-    "states": 4
-  },
-
-  {
-    "community": "The community of native species dependent on natural di…",
-    "full_name": "The community of native species dependent on natural discharge of groundwater from the Great Artesian Basin",
-    "status": "Endangered",
-    "states": 4
-  },
-
-  {
-    "community": "Buloke Woodlands of the Riverina and Murray-Darling Dep…",
-    "full_name": "Buloke Woodlands of the Riverina and Murray-Darling Depression Bioregions",
-    "status": "Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "Giant Kelp Marine Forests of South East Australia",
-    "full_name": "Giant Kelp Marine Forests of South East Australia",
-    "status": "Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "Grey Box (Eucalyptus microcarpa) Grassy Woodlands and D…",
-    "full_name": "Grey Box (Eucalyptus microcarpa) Grassy Woodlands and Derived Native Grasslands of South-eastern Australia",
-    "status": "Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "Littoral Rainforest and Coastal Vine Thickets of Easter…",
-    "full_name": "Littoral Rainforest and Coastal Vine Thickets of Eastern Australia",
-    "status": "Critically Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "Mallee Bird Community of the Murray Darling Depression …",
-    "full_name": "Mallee Bird Community of the Murray Darling Depression Bioregion",
-    "status": "Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "Natural Temperate Grassland of the South Eastern Highla…",
-    "full_name": "Natural Temperate Grassland of the South Eastern Highlands",
-    "status": "Critically Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "Plains mallee box woodlands of the Murray Darling Depre…",
-    "full_name": "Plains mallee box woodlands of the Murray Darling Depression, Riverina and Naracoorte Coastal Plain Bioregions",
-    "status": "Critically Endangered",
-    "states": 3
-  },
-
-  {
-    "community": "River Murray downstream of the Darling River, and assoc…",
-    "full_name": "River Murray downstream of the Darling River, and associated aquatic and floodplain systems",
-    "status": "Critically Endangered",
-    "states": 3
-  }
+  {"community":"River Red Gum Woodlands","full_name":"River Red Gum Grassy Woodlands and Derived Native Grasslands","status":"Endangered","states":4},
+  {"community":"Murray-Darling Woodlands","full_name":"Murray-Darling Depression Eucalypt Woodlands","status":"Critically Endangered","states":4},
+  {"community":"Grassy White Box Woodlands","full_name":"Grassy White Box Woodlands of the Tablelands and Slopes","status":"Critically Endangered","states":3},
+  {"community":"Natural Temperate Grassland","full_name":"Natural Temperate Grassland of the South Eastern Highlands","status":"Critically Endangered","states":3},
+  {"community":"Eastern Mulga Shrublands","full_name":"Eastern Mulga Shrublands","status":"Endangered","states":3},
+  {"community":"Semi-arid Chenopod Shrublands","full_name":"Semi-arid Chenopod Shrublands of Far Western NSW, VIC and SA","status":"Endangered","states":3},
+  {"community":"Buloke Woodlands of the Riverina","full_name":"Buloke Woodlands of the Riverina and Murray-Darling Depression","status":"Endangered","states":3},
+  {"community":"Montane Peatlands & Swamps","full_name":"Montane Peatlands and Swamps of the Australian Alps","status":"Endangered","states":3},
+  {"community":"Subtropical/Dry Rainforest","full_name":"Subtropical and Dry Rainforest in Queensland and New South Wales","status":"Endangered","states":2},
+  {"community":"Brigalow Belt Vine Thickets","full_name":"Brigalow Belt Semi-arid Woodlands and Vine Thickets","status":"Endangered","states":2},
+  {"community":"Freshwater Wetlands (Swan Coastal Plain)","full_name":"Freshwater Wetlands of the Swan Coastal Plain","status":"Critically Endangered","states":1},
+  {"community":"Lowland Native Grasslands of Tasmania","full_name":"Lowland Native Grasslands of Tasmania","status":"Critically Endangered","states":1}
 ]

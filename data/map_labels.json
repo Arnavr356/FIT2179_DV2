@@ -1,42 +1,10 @@
- [
-  {
-    "state": "NSW",
-    "lon": 146.5,
-    "lat": -32.5
-  },
-  {
-    "state": "VIC",
-    "lon": 144.5,
-    "lat": -37.0
-  },
-  {
-    "state": "QLD",
-    "lon": 144.5,
-    "lat": -22.0
-  },
-  {
-    "state": "SA",
-    "lon": 135.0,
-    "lat": -30.0
-  },
-  {
-    "state": "WA",
-    "lon": 122.0,
-    "lat": -27.0
-  },
-  {
-    "state": "TAS",
-    "lon": 146.5,
-    "lat": -42.0
-  },
-  {
-    "state": "NT",
-    "lon": 133.5,
-    "lat": -19.0
-  },
-  {
-    "state": "ACT",
-    "lon": 149.3,
-    "lat": -35.5
-  }
+[
+  {"state":"NSW","lat":-32.5,"lon":147.5},
+  {"state":"VIC","lat":-37.2,"lon":144.5},
+  {"state":"QLD","lat":-22.0,"lon":144.0},
+  {"state":"SA","lat":-30.5,"lon":135.5},
+  {"state":"WA","lat":-26.0,"lon":122.0},
+  {"state":"TAS","lat":-42.0,"lon":146.5},
+  {"state":"NT","lat":-19.5,"lon":133.5},
+  {"state":"ACT","lat":-35.5,"lon":149.1}
 ]

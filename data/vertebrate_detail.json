@@ -1,0 +1,17 @@
+[
+  {"group":"Birds","status":"Critically Endangered","count":18,"total":164,"pct":11.0},
+  {"group":"Birds","status":"Endangered","count":69,"total":164,"pct":42.1},
+  {"group":"Birds","status":"Vulnerable","count":77,"total":164,"pct":47.0},
+  {"group":"Mammals","status":"Critically Endangered","count":9,"total":113,"pct":8.0},
+  {"group":"Mammals","status":"Endangered","count":47,"total":113,"pct":41.6},
+  {"group":"Mammals","status":"Vulnerable","count":57,"total":113,"pct":50.4},
+  {"group":"Reptiles","status":"Critically Endangered","count":27,"total":101,"pct":26.7},
+  {"group":"Reptiles","status":"Endangered","count":40,"total":101,"pct":39.6},
+  {"group":"Reptiles","status":"Vulnerable","count":34,"total":101,"pct":33.7},
+  {"group":"Frogs","status":"Critically Endangered","count":18,"total":49,"pct":36.7},
+  {"group":"Frogs","status":"Endangered","count":15,"total":49,"pct":30.6},
+  {"group":"Frogs","status":"Vulnerable","count":16,"total":49,"pct":32.7},
+  {"group":"Fish","status":"Critically Endangered","count":28,"total":79,"pct":35.4},
+  {"group":"Fish","status":"Endangered","count":30,"total":79,"pct":38.0},
+  {"group":"Fish","status":"Vulnerable","count":21,"total":79,"pct":26.6}
+]
