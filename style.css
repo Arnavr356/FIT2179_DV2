@@ -304,13 +304,27 @@ section {
 
 /* ══════════ CHARTS ══════════ */
 
-.chart-grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 28px;
-  margin-bottom: 30px;
-}
+.chart-card {
+  background: var(--surface);
 
+  border: 1px solid var(--border);
+
+  border-radius: 14px;
+
+  padding: 26px 22px 18px;
+
+  box-shadow:
+    0 4px 12px rgba(44, 62, 45, 0.03);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
 .chart-grid-3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -613,10 +627,6 @@ section {
 }
 /* ══════════ FINAL CHART FIX ══════════ */
 
-.chart-grid-2 {
-  align-items: start;
-}
-
 .chart-grid-2 .chart-card {
   min-width: 0;
 }
@@ -624,6 +634,14 @@ section {
 #chart-scatter .vega-embed,
 #chart-comm-status .vega-embed {
   width: 100%;
+}
+
+#chart-scatter {
+  overflow-x: auto;
+}
+
+#chart-scatter .vega-embed {
+  min-width: 700px;
 }
 
 #chart-waffle {

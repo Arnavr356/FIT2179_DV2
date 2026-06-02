@@ -648,8 +648,8 @@ vegaEmbed("#chart-comm-status", {
     contains: "padding"
   },
 
-  width: "container",
-  height: 320,
+  width: 560,
+  height: 430,
 
   padding: {
     left: 20,
@@ -668,7 +668,7 @@ vegaEmbed("#chart-comm-status", {
       mark: {
         type: "arc",
         innerRadius: 85,
-        outerRadius: 135,
+        outerRadius: 165,
         stroke: "#ffffff",
         strokeWidth: 2
       },
@@ -750,12 +750,12 @@ vegaEmbed("#chart-scatter", {
     contains: "padding"
   },
 
-  width: 420,
-  height: 360,
+  width: 560,
+  height: 430,
 
   padding: {
     left: 10,
-    right:40,
+    right: 40,
     top: 20,
     bottom: 20
   },
@@ -764,12 +764,21 @@ vegaEmbed("#chart-scatter", {
     url: "data/state_total.json"
   },
 
+  selection: {
+    highlight: {
+      type: "single",
+      fields: ["state"],
+      on: "mouseover",
+      nearest: false,
+      empty: "none"
+    }
+  },
+
   layer: [
 
     {
       mark: {
-        type: "circle",
-        opacity: 0.88
+        type: "circle"
       },
 
       encoding: {
@@ -829,6 +838,21 @@ vegaEmbed("#chart-scatter", {
           }
         },
 
+        opacity: {
+          condition: { selection: "highlight", value: 1 },
+          value: 0.85
+        },
+
+        stroke: {
+          condition: { selection: "highlight", value: "#1f1f1f" },
+          value: null
+        },
+
+        strokeWidth: {
+          condition: { selection: "highlight", value: 2 },
+          value: 0
+        },
+
         tooltip: [
           { field: "state", title: "State" },
           { field: "species", title: "Threatened species" },
@@ -840,14 +864,14 @@ vegaEmbed("#chart-scatter", {
     },
 
     {
-     mark: {
-     type: "text",
-     interactive: false,
-     dy: -18,
-     fontSize: 12,
-     fontWeight: "700",
-     color: "#2c3e2d"
-    },
+      mark: {
+        type: "text",
+        interactive: false,
+        dy: -12,
+        fontSize: 12,
+        fontWeight: "700",
+        color: "#2c3e2d"
+      },
 
       encoding: {
 
