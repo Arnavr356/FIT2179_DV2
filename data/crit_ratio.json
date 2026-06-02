@@ -1,1 +1,49 @@
-[{"group": "Invertebrates", "total": 102, "pct_critical": 43.1}, {"group": "Frogs", "total": 49, "pct_critical": 36.7}, {"group": "Fish", "total": 79, "pct_critical": 35.4}, {"group": "Other", "total": 11, "pct_critical": 27.3}, {"group": "Reptiles", "total": 101, "pct_critical": 26.7}, {"group": "Plants", "total": 1479, "pct_critical": 20.7}, {"group": "Birds", "total": 164, "pct_critical": 11.0}, {"group": "Mammals", "total": 113, "pct_critical": 8.0}]
+[
+  {
+    "group": "Invertebrates",
+    "total": 102,
+    "pct_critical": 43.1
+  },
+
+  {
+    "group": "Frogs",
+    "total": 49,
+    "pct_critical": 36.7
+  },
+
+  {
+    "group": "Fish",
+    "total": 79,
+    "pct_critical": 35.4
+  },
+
+  {
+    "group": "Other",
+    "total": 11,
+    "pct_critical": 27.3
+  },
+
+  {
+    "group": "Reptiles",
+    "total": 101,
+    "pct_critical": 26.7
+  },
+
+  {
+    "group": "Plants",
+    "total": 1479,
+    "pct_critical": 20.7
+  },
+
+  {
+    "group": "Birds",
+    "total": 164,
+    "pct_critical": 11.0
+  },
+
+  {
+    "group": "Mammals",
+    "total": 113,
+    "pct_critical": 8.0
+  }
+]

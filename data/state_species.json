@@ -1,1 +1,145 @@
-[{"state": "ACT", "status": "Critically Endangered", "count": 11}, {"state": "ACT", "status": "Endangered", "count": 27}, {"state": "ACT", "status": "Vulnerable", "count": 33}, {"state": "NSW", "status": "Critically Endangered", "count": 152}, {"state": "NSW", "status": "Endangered", "count": 285}, {"state": "NSW", "status": "Vulnerable", "count": 284}, {"state": "NT", "status": "Critically Endangered", "count": 14}, {"state": "NT", "status": "Endangered", "count": 50}, {"state": "NT", "status": "Vulnerable", "count": 78}, {"state": "QLD", "status": "Critically Endangered", "count": 86}, {"state": "QLD", "status": "Endangered", "count": 199}, {"state": "QLD", "status": "Vulnerable", "count": 290}, {"state": "SA", "status": "Critically Endangered", "count": 31}, {"state": "SA", "status": "Endangered", "count": 116}, {"state": "SA", "status": "Vulnerable", "count": 146}, {"state": "TAS", "status": "Critically Endangered", "count": 48}, {"state": "TAS", "status": "Endangered", "count": 77}, {"state": "TAS", "status": "Vulnerable", "count": 89}, {"state": "VIC", "status": "Critically Endangered", "count": 50}, {"state": "VIC", "status": "Endangered", "count": 129}, {"state": "VIC", "status": "Vulnerable", "count": 161}, {"state": "WA", "status": "Critically Endangered", "count": 106}, {"state": "WA", "status": "Endangered", "count": 276}, {"state": "WA", "status": "Vulnerable", "count": 197}]
+[
+  {
+    "state": "ACT",
+    "status": "Critically Endangered",
+    "count": 11
+  },
+
+  {
+    "state": "ACT",
+    "status": "Endangered",
+    "count": 27
+  },
+
+  {
+    "state": "ACT",
+    "status": "Vulnerable",
+    "count": 33
+  },
+
+  {
+    "state": "NSW",
+    "status": "Critically Endangered",
+    "count": 152
+  },
+
+  {
+    "state": "NSW",
+    "status": "Endangered",
+    "count": 285
+  },
+
+  {
+    "state": "NSW",
+    "status": "Vulnerable",
+    "count": 284
+  },
+
+  {
+    "state": "NT",
+    "status": "Critically Endangered",
+    "count": 14
+  },
+
+  {
+    "state": "NT",
+    "status": "Endangered",
+    "count": 50
+  },
+
+  {
+    "state": "NT",
+    "status": "Vulnerable",
+    "count": 78
+  },
+
+  {
+    "state": "QLD",
+    "status": "Critically Endangered",
+    "count": 86
+  },
+
+  {
+    "state": "QLD",
+    "status": "Endangered",
+    "count": 199
+  },
+
+  {
+    "state": "QLD",
+    "status": "Vulnerable",
+    "count": 290
+  },
+
+  {
+    "state": "SA",
+    "status": "Critically Endangered",
+    "count": 31
+  },
+
+  {
+    "state": "SA",
+    "status": "Endangered",
+    "count": 116
+  },
+
+  {
+    "state": "SA",
+    "status": "Vulnerable",
+    "count": 146
+  },
+
+  {
+    "state": "TAS",
+    "status": "Critically Endangered",
+    "count": 48
+  },
+
+  {
+    "state": "TAS",
+    "status": "Endangered",
+    "count": 77
+  },
+
+  {
+    "state": "TAS",
+    "status": "Vulnerable",
+    "count": 89
+  },
+
+  {
+    "state": "VIC",
+    "status": "Critically Endangered",
+    "count": 50
+  },
+
+  {
+    "state": "VIC",
+    "status": "Endangered",
+    "count": 129
+  },
+
+  {
+    "state": "VIC",
+    "status": "Vulnerable",
+    "count": 161
+  },
+
+  {
+    "state": "WA",
+    "status": "Critically Endangered",
+    "count": 106
+  },
+
+  {
+    "state": "WA",
+    "status": "Endangered",
+    "count": 276
+  },
+
+  {
+    "state": "WA",
+    "status": "Vulnerable",
+    "count": 197
+  }
+]

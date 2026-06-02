@@ -1,1 +1,65 @@
-[{"group": "Birds", "total": 164, "critically_endangered": 18, "endangered": 69, "vulnerable": 77}, {"group": "Fish", "total": 79, "critically_endangered": 28, "endangered": 30, "vulnerable": 21}, {"group": "Frogs", "total": 49, "critically_endangered": 18, "endangered": 15, "vulnerable": 16}, {"group": "Invertebrates", "total": 102, "critically_endangered": 44, "endangered": 46, "vulnerable": 12}, {"group": "Mammals", "total": 113, "critically_endangered": 9, "endangered": 47, "vulnerable": 57}, {"group": "Other", "total": 11, "critically_endangered": 3, "endangered": 3, "vulnerable": 5}, {"group": "Plants", "total": 1479, "critically_endangered": 306, "endangered": 610, "vulnerable": 563}, {"group": "Reptiles", "total": 101, "critically_endangered": 27, "endangered": 40, "vulnerable": 34}]
+[
+  {
+    "group": "Birds",
+    "total": 164,
+    "critically_endangered": 18,
+    "endangered": 69,
+    "vulnerable": 77
+  },
+
+  {
+    "group": "Fish",
+    "total": 79,
+    "critically_endangered": 28,
+    "endangered": 30,
+    "vulnerable": 21
+  },
+
+  {
+    "group": "Frogs",
+    "total": 49,
+    "critically_endangered": 18,
+    "endangered": 15,
+    "vulnerable": 16
+  },
+
+  {
+    "group": "Invertebrates",
+    "total": 102,
+    "critically_endangered": 44,
+    "endangered": 46,
+    "vulnerable": 12
+  },
+
+  {
+    "group": "Mammals",
+    "total": 113,
+    "critically_endangered": 9,
+    "endangered": 47,
+    "vulnerable": 57
+  },
+
+  {
+    "group": "Other",
+    "total": 11,
+    "critically_endangered": 3,
+    "endangered": 3,
+    "vulnerable": 5
+  },
+
+  {
+    "group": "Plants",
+    "total": 1479,
+    "critically_endangered": 306,
+    "endangered": 610,
+    "vulnerable": 563
+  },
+
+  {
+    "group": "Reptiles",
+    "total": 101,
+    "critically_endangered": 27,
+    "endangered": 40,
+    "vulnerable": 34
+  }
+]
