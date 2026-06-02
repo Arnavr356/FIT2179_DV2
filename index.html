@@ -649,59 +649,166 @@ vegaEmbed("#chart-top-communities", {
 }, { actions: false });
 
 // CHART 10 — Donut with count labels: community status breakdown
+
 vegaEmbed("#chart-comm-status", {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+
   data: { url: "data/comm_status.json" },
-  width: "container", height: 280,
+
+  width: 360,
+  height: 320,
+
+  autosize: {
+    type: "fit",
+    contains: "padding"
+  },
+
   layer: [
     {
-      mark: { type: "arc", innerRadius: 70, outerRadius: 115, stroke: "#ffffff", strokeWidth: 2 },
+      mark: {
+        type: "arc",
+        innerRadius: 70,
+        outerRadius: 115,
+        stroke: "#ffffff",
+        strokeWidth: 2
+      },
+
       encoding: {
-        theta: { field: "count", type: "quantitative" },
-        color: {
-          field: "status", type: "nominal",
-          scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-          legend: { title: "Threat status", orient: "bottom" }
+
+        theta: {
+          field: "count",
+          type: "quantitative"
         },
+
+        color: {
+          field: "status",
+          type: "nominal",
+
+          scale: {
+            domain: STATUS_ORDER,
+            range: [CE, EN, VU]
+          },
+
+          legend: {
+            title: "Threat status",
+            orient: "bottom"
+          }
+        },
+
         tooltip: [
           { field: "status", title: "Status" },
           { field: "count", title: "Communities" }
         ]
       }
     },
+
     {
-      mark: { type: "text", radius: 95, fontSize: 14, fontWeight: "700" },
+      mark: {
+        type: "text",
+        radius: 95,
+        fontSize: 14,
+        fontWeight: "700"
+      },
+
       encoding: {
-        theta: { field: "count", type: "quantitative", stack: true },
-        text: { field: "count", type: "quantitative" },
-        color: { value: "#ffffff" }
+        theta: {
+          field: "count",
+          type: "quantitative",
+          stack: true
+        },
+
+        text: {
+          field: "count",
+          type: "quantitative"
+        },
+
+        color: {
+          value: "#ffffff"
+        }
       }
     }
   ],
+
   config: baseConfig
+
 }, { actions: false });
 
 // CHART 11 — Bubble scatter: species vs communities by state
+
 vegaEmbed("#chart-scatter", {
+
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+
   data: { url: "data/state_total.json" },
-  width: "container", height: 280,
+
+  width: 430,
+  height: 320,
+
+  autosize: {
+    type: "fit",
+    contains: "padding"
+  },
+
   layer: [
+
     {
-      mark: { type: "circle", opacity: 0.85 },
+      mark: {
+        type: "circle",
+        opacity: 0.85
+      },
+
       encoding: {
-        x: { field: "species", type: "quantitative", axis: { title: "Threatened species count", grid: true } },
-        y: { field: "communities", type: "quantitative", axis: { title: "Threatened communities count", grid: true } },
+
+        x: {
+          field: "species",
+          type: "quantitative",
+
+          axis: {
+            title: "Threatened species count",
+            grid: true
+          }
+        },
+
+        y: {
+          field: "communities",
+          type: "quantitative",
+
+          axis: {
+            title: "Threatened communities count",
+            grid: true
+          }
+        },
+
         color: {
-          field: "critically_endangered", type: "quantitative",
-          scale: { scheme: "reds", domain: [0, 160] },
-          legend: { title: "Critically Endangered species", orient: "right" }
+
+          field: "critically_endangered",
+          type: "quantitative",
+
+          scale: {
+            scheme: "reds",
+            domain: [0, 160]
+          },
+
+          legend: {
+            title: "Critically Endangered species",
+            orient: "right"
+          }
         },
+
         size: {
-          field: "total", type: "quantitative",
-          scale: { range: [80, 600] },
-          legend: { title: "Total listings" }
+
+          field: "total",
+          type: "quantitative",
+
+          scale: {
+            range: [80, 600]
+          },
+
+          legend: {
+            title: "Total listings"
+          }
         },
+
         tooltip: [
           { field: "state", title: "State" },
           { field: "species", title: "Threatened species" },
@@ -711,17 +818,41 @@ vegaEmbed("#chart-scatter", {
         ]
       }
     },
+
     {
-      mark: { type: "text", dy: -18, fontSize: 11, fontWeight: "700" },
+      mark: {
+        type: "text",
+        dy: -18,
+        fontSize: 11,
+        fontWeight: "700"
+      },
+
       encoding: {
-        x: { field: "species", type: "quantitative" },
-        y: { field: "communities", type: "quantitative" },
-        text: { field: "state", type: "nominal" },
-        color: { value: TEXT }
+
+        x: {
+          field: "species",
+          type: "quantitative"
+        },
+
+        y: {
+          field: "communities",
+          type: "quantitative"
+        },
+
+        text: {
+          field: "state",
+          type: "nominal"
+        },
+
+        color: {
+          value: TEXT
+        }
       }
     }
   ],
+
   config: baseConfig
+
 }, { actions: false });
 
 // CHART 12 — Normalised 100% stacked bar: vertebrate threat composition (NEW)
