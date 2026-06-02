@@ -610,11 +610,9 @@ section {
     transform: translateY(0);
   }
 }
+/* ══════════ FINAL CHART FIX ══════════ */
 
 .chart-grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
-  gap: 2rem;
   align-items: start;
 }
 
@@ -622,32 +620,7 @@ section {
   min-width: 0;
 }
 
-#chart-scatter {
-  width: 100%;
-  min-height: 360px;
-  overflow-x: auto;
-}
-
-#chart-scatter .vega-embed {
-  width: 100%;
-  min-width: 700px;
-}
-
-/* ══════════ SCATTER FIX ══════════ */
-
-#chart-scatter {
-  overflow-x: auto;
-}
-
-#chart-scatter .vega-embed {
-  min-width: 820px;
-}
-
-#chart-scatter {
-  width: 100%;
-  min-height: 360px;
-}
-
-#chart-scatter .vega-embed {
+#chart-scatter .vega-embed,
+#chart-comm-status .vega-embed {
   width: 100%;
 }
