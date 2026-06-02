@@ -730,17 +730,15 @@ vegaEmbed("#chart-comm-status", {
 
 }, { actions: false });
 
+// CHART 11 — Bubble scatter: species vs communities by state
+
 vegaEmbed("#chart-scatter", {
+
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
 
-  background: BG,
+  background: null,
 
-  autosize: {
-    type: "fit",
-    contains: "padding"
-  },
-
-  width: "container",
+  width: 520,
   height: 360,
 
   data: {
@@ -749,7 +747,7 @@ vegaEmbed("#chart-scatter", {
 
   params: [
     {
-      name: "highlight",
+      name: "hover",
       select: {
         type: "point",
         fields: ["state"],
@@ -763,7 +761,10 @@ vegaEmbed("#chart-scatter", {
 
     {
       mark: {
-        type: "circle"
+        type: "circle",
+        opacity: 0.82,
+        stroke: "#ffffff",
+        strokeWidth: 1.2
       },
 
       encoding: {
@@ -771,8 +772,15 @@ vegaEmbed("#chart-scatter", {
         x: {
           field: "species",
           type: "quantitative",
+
+          scale: {
+            domain: [0, 800]
+          },
+
           axis: {
             title: "Threatened species count",
+            titleFontSize: 14,
+            labelFontSize: 11,
             grid: true
           }
         },
@@ -780,8 +788,15 @@ vegaEmbed("#chart-scatter", {
         y: {
           field: "communities",
           type: "quantitative",
+
+          scale: {
+            domain: [0, 65]
+          },
+
           axis: {
             title: "Threatened communities count",
+            titleFontSize: 14,
+            labelFontSize: 11,
             grid: true
           }
         },
@@ -789,41 +804,50 @@ vegaEmbed("#chart-scatter", {
         size: {
           field: "total",
           type: "quantitative",
+
           scale: {
-            range: [100, 900]
+            range: [120, 900]
+          },
+
+          legend: {
+            title: "Total listings",
+            orient: "right",
+            titleFontSize: 12,
+            labelFontSize: 11
           }
         },
 
         color: {
           field: "critically_endangered",
           type: "quantitative",
+
           scale: {
-            scheme: "reds"
+            scheme: "reds",
+            domain: [0, 160]
+          },
+
+          legend: {
+            title: "Critically Endangered",
+            orient: "right",
+            titleFontSize: 12,
+            labelFontSize: 11
           }
         },
 
         opacity: {
           condition: {
-            param: "highlight",
+            param: "hover",
             value: 1
           },
           value: 0.8
         },
 
-        stroke: {
-          condition: {
-            param: "highlight",
-            value: "#1f1f1f"
-          },
-          value: null
-        },
-
         strokeWidth: {
           condition: {
-            param: "highlight",
-            value: 2
+            param: "hover",
+            value: 2.5
           },
-          value: 0
+          value: 1.2
         },
 
         tooltip: [
@@ -839,10 +863,10 @@ vegaEmbed("#chart-scatter", {
     {
       mark: {
         type: "text",
-        dy: -10,
+        dy: -14,
         fontSize: 11,
         fontWeight: "bold",
-        color: "#2c3e2d"
+        color: "#2f3d2f"
       },
 
       encoding: {
@@ -864,7 +888,25 @@ vegaEmbed("#chart-scatter", {
     }
   ],
 
-  config: baseConfig
+  config: {
+
+    view: {
+      stroke: "#d9d9d9"
+    },
+
+    axis: {
+      gridColor: "#e6e3dc",
+      domainColor: "#999",
+      tickColor: "#999",
+      labelColor: "#556555",
+      titleColor: "#2c3e2d"
+    },
+
+    legend: {
+      labelColor: "#556555",
+      titleColor: "#2c3e2d"
+    }
+  }
 
 }, { actions: false });
 
