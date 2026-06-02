@@ -738,20 +738,8 @@ vegaEmbed("#chart-scatter", {
 
   background: null,
 
-  autosize: {
-    type: "fit",
-    contains: "padding"
-  },
-
-  width: 620,
+  width: "container",
   height: 360,
-
-  padding: {
-    left: 10,
-    right: 10,
-    top: 20,
-    bottom: 10
-  },
 
   data: {
     url: "data/state_total.json"
@@ -837,7 +825,8 @@ vegaEmbed("#chart-scatter", {
           type: "quantitative",
 
           scale: {
-            scheme: "orangered"
+            scheme: "reds",
+            domain: [0, 160]
           },
 
           legend: {
@@ -924,7 +913,6 @@ vegaEmbed("#chart-scatter", {
   }
 
 }, { actions: false });
-
 // CHART 12 — Normalised 100% stacked bar: vertebrate threat composition (NEW)
 vegaEmbed("#chart-vertebrate-norm", {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
