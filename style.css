@@ -435,8 +435,10 @@ section {
 }
 
 /* ══════════ FOOTER ══════════ */
+/* ══════════ FOOTER ══════════ */
 
 .nature-footer {
+
   background:
     linear-gradient(
       180deg,
@@ -446,7 +448,7 @@ section {
 
   border-top: 2px solid var(--border);
 
-  padding: 60px 20px 42px;
+  padding: 42px 20px 28px;
 
   margin-top: 70px;
 
@@ -460,7 +462,7 @@ section {
 
   font-size: 1rem;
 
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
 .footer-content {
@@ -473,18 +475,23 @@ section {
 .footer-meta {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 14px;
 }
 
 .footer-block {
   max-width: 850px;
   margin: 0 auto;
+  line-height: 1.7;
 }
 
 .footer-block strong {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   font-size: 1.05rem;
+}
+
+.footer-block p {
+  margin-bottom: 6px;
 }
 
 .footer-block a {
@@ -499,12 +506,13 @@ section {
 }
 
 .footer-copy {
-  margin-top: 28px;
+  margin-top: 18px;
   opacity: 0.85;
-  font-size: 0.95rem;
+  font-size: 0.93rem;
 }
 
 .nature-footer::after {
+
   content: "";
 
   position: absolute;
@@ -526,6 +534,7 @@ section {
 
   pointer-events: none;
 }
+
 
 /* ══════════ MOBILE ══════════ */
 
