@@ -648,15 +648,8 @@ vegaEmbed("#chart-comm-status", {
     contains: "padding"
   },
 
-  width: 560,
-  height: 430,
-
-  padding: {
-    left: 20,
-    right: 20,
-    top: 20,
-    bottom: 80
-  },
+  width: "container",
+  height: 360,
 
   data: {
     url: "data/comm_status.json"
@@ -668,7 +661,7 @@ vegaEmbed("#chart-comm-status", {
       mark: {
         type: "arc",
         innerRadius: 85,
-        outerRadius: 165,
+        outerRadius: 135,
         stroke: "#ffffff",
         strokeWidth: 2
       },
@@ -750,15 +743,8 @@ vegaEmbed("#chart-scatter", {
     contains: "padding"
   },
 
-  width: 560,
-  height: 430,
-
-  padding: {
-    left: 10,
-    right: 40,
-    top: 20,
-    bottom: 20
-  },
+  width: "container",
+  height: 360,
 
   data: {
     url: "data/state_total.json"
