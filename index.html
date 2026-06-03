@@ -289,8 +289,35 @@ const baseConfig = {
 };
 
 // ── CHART 1 — Stacked bar: species by group ────────────────────────────────────
-vegaEmbed("#chart-group-stacked", "specs/chart-group-stacked.json",
-  { config: baseConfig, actions: false });
+vegaEmbed("#chart-group-stacked", {
+  $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+  data: { url: "data/group_status.json" },
+  width: "container", height: 280,
+  mark: { type: "bar", cornerRadiusTopLeft: 3, cornerRadiusTopRight: 3 },
+  encoding: {
+    x: {
+      field: "group", type: "nominal",
+      sort: { op: "sum", field: "count", order: "descending" },
+      axis: { labelAngle: -30, title: null, labelFontSize: 12 }
+    },
+    y: {
+      aggregate: "sum", field: "count", type: "quantitative",
+      axis: { title: "Number of threatened species", grid: true }
+    },
+    color: {
+      field: "status", type: "nominal",
+      scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
+      legend: { title: "Threat status", orient: "top" }
+    },
+    order: { field: "status", sort: "ascending" },
+    tooltip: [
+      { field: "group", title: "Biological group" },
+      { field: "status", title: "Status" },
+      { field: "count", title: "Species count" }
+    ]
+  },
+  config: baseConfig
+}, { actions: false });
 
 // ── CHART 2 — Horizontal bar + reference line: critically endangered ratio ─────
 vegaEmbed("#chart-crit-ratio", {
@@ -521,7 +548,7 @@ vegaEmbed("#chart-state-species", {
       legend: { title: "Threat status", orient: "top" }
     },
     opacity: {
-      condition: { param: "stateHighlight", value: 1 },
+      condition: { param: "stateHighlight", empty: false, value: 1 },
       value: 0.25
     },
     order: { field: "status", sort: "ascending" },
@@ -541,22 +568,23 @@ vegaEmbed("#chart-communities-lollipop", {
   width: "container", height: 300,
   layer: [
     {
-      mark: { type: "rule", strokeWidth: 2, color: "#d1d8c9" },
+      mark: { type: "rule", strokeWidth: 2.5, color: "#d1d8c9" },
       encoding: {
         y: {
           field: "state", type: "nominal",
           sort: { field: "total", order: "descending" },
           axis: { title: null, labelFontSize: 13 }
         },
-        x: { datum: 0, type: "quantitative" },
+        x: { field: "critically_endangered", type: "quantitative", axis: null },
         x2: { field: "total" }
       }
     },
     {
-      mark: { type: "circle", size: 130, color: EN, opacity: 0.9, stroke: "white", strokeWidth: 1.5 },
+      mark: { type: "circle", size: 140, opacity: 0.9, stroke: "white", strokeWidth: 1.5 },
       encoding: {
         y: { field: "state", type: "nominal", sort: { field: "total", order: "descending" } },
         x: { field: "total", type: "quantitative", axis: { title: "Total threatened ecological communities", grid: true } },
+        color: { value: EN },
         tooltip: [
           { field: "state", title: "State" },
           { field: "total", title: "Total communities" },
@@ -567,10 +595,11 @@ vegaEmbed("#chart-communities-lollipop", {
       }
     },
     {
-      mark: { type: "circle", size: 90, color: CE, opacity: 0.95, stroke: "white", strokeWidth: 1.5 },
+      mark: { type: "circle", size: 100, opacity: 0.95, stroke: "white", strokeWidth: 1.5 },
       encoding: {
         y: { field: "state", type: "nominal", sort: { field: "total", order: "descending" } },
         x: { field: "critically_endangered", type: "quantitative" },
+        color: { value: CE },
         tooltip: [
           { field: "state", title: "State" },
           { field: "critically_endangered", title: "Critically Endangered communities" }
@@ -646,18 +675,17 @@ vegaEmbed("#chart-top-communities", {
   config: baseConfig
 }, { actions: false });
 
-// ── CHART 10 — Donut: community status breakdown (label hidden on tiny VU slice) ─
+// ── CHART 10 — Donut: community status breakdown ──────────────────────────────
 vegaEmbed("#chart-comm-status", {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
   background: BG,
-  autosize: { type: "pad", contains: "padding" },
   width: "container", height: 360,
   data: { url: "data/comm_status.json" },
   layer: [
     {
       mark: { type: "arc", innerRadius: 85, outerRadius: 135, stroke: "#ffffff", strokeWidth: 2 },
       encoding: {
-        theta: { field: "count", type: "quantitative" },
+        theta: { field: "count", type: "quantitative", stack: true },
         color: {
           field: "status", type: "nominal",
           scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
@@ -670,11 +698,14 @@ vegaEmbed("#chart-comm-status", {
       }
     },
     {
-      transform: [{ filter: "datum.count > 5" }],
-      mark: { type: "text", radius: 112, fontSize: 15, fontWeight: "700", fill: "#ffffff" },
+      mark: { type: "text", radius: 112, fontSize: 15, fontWeight: "700" },
       encoding: {
         theta: { field: "count", type: "quantitative", stack: true },
-        text: { field: "count", type: "quantitative" }
+        text: { field: "count", type: "quantitative" },
+        color: {
+          condition: { test: "datum.status === 'Vulnerable'", value: "#5a4a1a" },
+          value: "#ffffff"
+        }
       }
     }
   ],
@@ -744,7 +775,7 @@ vegaEmbed("#chart-vertebrate-norm", {
       encoding: {
         x: {
           field: "group", type: "nominal",
-          sort: { op: "sum", field: "count", order: "descending" },
+          sort: ["Frogs", "Fish", "Reptiles", "Birds", "Mammals"],
           axis: { title: null, labelAngle: 0, labelFontSize: 13 }
         },
         y: {

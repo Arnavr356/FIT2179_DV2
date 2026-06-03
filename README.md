@@ -2,7 +2,7 @@ Australia's Threatened Species Crisis
 FIT2179 Data Visualisation 2 — Monash University, Semester 1 2026
 A data visualisation exploring Australia's biodiversity emergency, built with Vega-Lite, HTML and CSS.
 Live Visualisation
-View at: https://[your-github-username].github.io/FIT2179_DV2/
+View at: https://arnavr356.github.io/FIT2179_DV2/
 Structure
 FIT2179_DV2/
 ├── index.html          # Main visualisation page
