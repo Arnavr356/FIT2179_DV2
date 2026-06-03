@@ -701,7 +701,8 @@ vegaEmbed("#chart-heatmap", {
     x: { field: "state", type: "nominal", title: "State / Territory", sort: ["NSW","QLD","WA","VIC","SA","TAS"],
          axis: { labelFontSize: 12 } },
     y: { field: "group", type: "nominal", title: null, axis: { labelFontSize: 12 } },
-    color: { field: "count", type: "quantitative", scale: { scheme: "orangered" },
+    color: { field: "count", type: "quantitative",
+             scale: { range: ["#fde8d8", "#c84b31"] },
              legend: { title: "Threatened species" } },
     tooltip: [
       { field: "state", title: "State" },
@@ -894,6 +895,9 @@ const waffleData = [];
   { group: "Reptiles", critical: 27 }
 ].forEach(g => {
   for (let i = 0; i < 100; i++) {
+    // Fill CE from top-left: first 'critical' squares are CE
+    // row 0 = top (sort: descending maps row 9 to bottom, row 0 to top)
+    // So i=0..9 is top row, i=10..19 is second row etc.
     waffleData.push({
       group: g.group, row: Math.floor(i / 10), col: i % 10,
       status: i < g.critical ? "Critically Endangered" : "Other Threatened"
@@ -914,7 +918,7 @@ vegaEmbed("#chart-waffle", {
     mark: { type: "square", size: 310, stroke: "#f5f1e8", strokeWidth: 1 },
     encoding: {
       x: { field: "col", type: "ordinal", axis: null },
-      y: { field: "row", type: "ordinal", sort: "descending", axis: null },
+      y: { field: "row", type: "ordinal", sort: "ascending", axis: null },
       color: {
         field: "status", type: "nominal",
         scale: { domain: ["Critically Endangered", "Other Threatened"], range: [CE, "#e8dfc8"] },
