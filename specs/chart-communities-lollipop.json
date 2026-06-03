@@ -1,0 +1,68 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Lollipop chart — threatened ecological communities per state, replacing duplicate stacked bar",
+  "data": { "url": "../data/communities_by_state.json" },
+  "width": "container",
+  "height": 300,
+  "layer": [
+    {
+      "mark": { "type": "rule", "strokeWidth": 2, "color": "#d1d8c9" },
+      "encoding": {
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" },
+          "axis": { "title": null, "labelFontSize": 13 }
+        },
+        "x": { "datum": 0, "type": "quantitative" },
+        "x2": { "field": "total" }
+      }
+    },
+    {
+      "mark": { "type": "circle", "size": 120, "color": "#d98841", "opacity": 0.85, "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" }
+        },
+        "x": {
+          "field": "total", "type": "quantitative",
+          "axis": { "title": "Total threatened ecological communities", "grid": true }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "total", "title": "Total communities" },
+          { "field": "critically_endangered", "title": "Critically Endangered" },
+          { "field": "endangered", "title": "Endangered" },
+          { "field": "vulnerable", "title": "Vulnerable" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "circle", "size": 80, "color": "#c84b31", "opacity": 0.95, "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" }
+        },
+        "x": {
+          "field": "critically_endangered", "type": "quantitative"
+        },
+        "tooltip": [
+          { "field": "state", "title": "State" },
+          { "field": "critically_endangered", "title": "Critically Endangered communities" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "text", "align": "left", "dx": 10, "fontSize": 11, "color": "#2c3e2d" },
+      "encoding": {
+        "y": {
+          "field": "state", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" }
+        },
+        "x": { "field": "total", "type": "quantitative" },
+        "text": { "field": "total", "type": "quantitative" }
+      }
+    }
+  ]
+}

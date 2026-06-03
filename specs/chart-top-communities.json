@@ -1,0 +1,28 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "url": "../data/top_communities.json" },
+  "width": "container",
+  "height": 360,
+  "mark": { "type": "bar", "cornerRadiusTopRight": 3, "cornerRadiusBottomRight": 3 },
+  "encoding": {
+    "y": {
+      "field": "community", "type": "nominal",
+      "sort": { "field": "states", "order": "descending" },
+      "axis": { "title": null, "labelFontSize": 11, "labelLimit": 340 }
+    },
+    "x": {
+      "field": "states", "type": "quantitative",
+      "axis": { "title": "Number of states / territories listed in", "tickMinStep": 1, "grid": true }
+    },
+    "color": {
+      "field": "status", "type": "nominal",
+      "scale": { "domain": ["Critically Endangered","Endangered","Vulnerable"], "range": ["#c84b31","#d98841","#e1b12c"] },
+      "legend": { "title": "Threat status", "orient": "top" }
+    },
+    "tooltip": [
+      { "field": "full_name", "title": "Community name" },
+      { "field": "status", "title": "Status" },
+      { "field": "states", "title": "No. of states listed in" }
+    ]
+  }
+}

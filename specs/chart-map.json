@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 480,
+  "projection": { "type": "mercator", "center": [134, -28], "scale": 600 },
+  "layer": [
+    {
+      "data": { "url": "../data/australia-states.json", "format": { "type": "json", "property": "features" } },
+      "mark": { "type": "geoshape", "stroke": "#ffffff", "strokeWidth": 1.5 },
+      "transform": [{
+        "lookup": "properties.state",
+        "from": {
+          "data": { "url": "../data/state_total.json" },
+          "key": "state",
+          "fields": ["total", "species", "communities", "critically_endangered", "state"]
+        }
+      }],
+      "encoding": {
+        "color": {
+          "field": "total", "type": "quantitative",
+          "scale": { "scheme": "greens", "domain": [0, 800] },
+          "legend": { "title": "Total threatened listings", "orient": "right", "gradientLength": 180 }
+        },
+        "tooltip": [
+          { "field": "properties.STATE_NAME", "title": "State / Territory" },
+          { "field": "total", "title": "Total listings" },
+          { "field": "species", "title": "Threatened species" },
+          { "field": "communities", "title": "Threatened communities" },
+          { "field": "critically_endangered", "title": "Critically Endangered" }
+        ]
+      }
+    },
+    {
+      "data": { "url": "../data/map_labels.json" },
+      "mark": { "type": "text", "fontSize": 12, "fontWeight": "700", "opacity": 0.9 },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "state", "type": "nominal" },
+        "color": { "value": "#1a2e1a" }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "label": "781 listings", "lon": 147.5, "lat": -30.5 },
+          { "label": "▲ Most threatened state", "lon": 147.5, "lat": -31.5 }
+        ]
+      },
+      "mark": { "type": "text", "fontSize": 10, "fontWeight": "600", "color": "#c84b31" },
+      "encoding": {
+        "longitude": { "field": "lon", "type": "quantitative" },
+        "latitude": { "field": "lat", "type": "quantitative" },
+        "text": { "field": "label", "type": "nominal" }
+      }
+    }
+  ]
+}

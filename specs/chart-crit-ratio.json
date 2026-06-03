@@ -1,0 +1,49 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "url": "../data/crit_ratio.json" },
+  "width": "container",
+  "height": 280,
+  "layer": [
+    {
+      "mark": { "type": "bar", "color": "#c84b31", "cornerRadiusTopRight": 3, "cornerRadiusBottomRight": 3 },
+      "encoding": {
+        "y": {
+          "field": "group", "type": "nominal",
+          "sort": { "field": "pct_critical", "order": "descending" },
+          "axis": { "title": null, "labelFontSize": 12 }
+        },
+        "x": {
+          "field": "pct_critical", "type": "quantitative",
+          "axis": { "title": "% Critically Endangered", "format": ".0f", "labelExpr": "datum.value + '%'" }
+        },
+        "tooltip": [
+          { "field": "group", "title": "Group" },
+          { "field": "pct_critical", "title": "% Critically Endangered", "format": ".1f" },
+          { "field": "total", "title": "Total threatened" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "rule", "color": "#6b7a68", "strokeDash": [4,3], "strokeWidth": 1.5 },
+      "data": { "values": [{}] },
+      "encoding": { "x": { "datum": 25, "type": "quantitative" } }
+    },
+    {
+      "mark": { "type": "text", "align": "right", "dx": -4, "dy": -8, "fontSize": 10, "color": "#6b7a68", "fontWeight": "600" },
+      "data": { "values": [{ "label": "National avg 25%" }] },
+      "encoding": {
+        "x": { "datum": 25, "type": "quantitative" },
+        "y": { "datum": "Mammals" },
+        "text": { "field": "label" }
+      }
+    },
+    {
+      "mark": { "type": "text", "align": "left", "dx": 5, "fontSize": 11, "fontWeight": "600", "color": "#2c3e2d" },
+      "encoding": {
+        "y": { "field": "group", "type": "nominal", "sort": { "field": "pct_critical", "order": "descending" } },
+        "x": { "field": "pct_critical", "type": "quantitative" },
+        "text": { "field": "pct_critical", "type": "quantitative", "format": ".1f" }
+      }
+    }
+  ]
+}

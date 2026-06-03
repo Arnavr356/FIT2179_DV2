@@ -1,0 +1,29 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": { "url": "../data/group_status.json" },
+  "width": "container",
+  "height": 280,
+  "mark": { "type": "bar", "cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3 },
+  "encoding": {
+    "x": {
+      "field": "group", "type": "nominal",
+      "sort": { "op": "sum", "field": "count", "order": "descending" },
+      "axis": { "labelAngle": -30, "title": null, "labelFontSize": 12 }
+    },
+    "y": {
+      "aggregate": "sum", "field": "count", "type": "quantitative",
+      "axis": { "title": "Number of threatened species", "grid": true }
+    },
+    "color": {
+      "field": "status", "type": "nominal",
+      "scale": { "domain": ["Critically Endangered","Endangered","Vulnerable"], "range": ["#c84b31","#d98841","#e1b12c"] },
+      "legend": { "title": "Threat status", "orient": "top" }
+    },
+    "order": { "field": "status", "sort": "ascending" },
+    "tooltip": [
+      { "field": "group", "title": "Biological group" },
+      { "field": "status", "title": "Status" },
+      { "field": "count", "title": "Species count" }
+    ]
+  }
+}

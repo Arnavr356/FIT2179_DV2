@@ -1,0 +1,182 @@
+[
+  {
+    "state": "NSW",
+    "group": "Birds",
+    "count": 81
+  },
+  {
+    "state": "NSW",
+    "group": "Mammals",
+    "count": 42
+  },
+  {
+    "state": "NSW",
+    "group": "Fish",
+    "count": 24
+  },
+  {
+    "state": "NSW",
+    "group": "Reptiles",
+    "count": 37
+  },
+  {
+    "state": "NSW",
+    "group": "Frogs",
+    "count": 29
+  },
+  {
+    "state": "NSW",
+    "group": "Invertebrates",
+    "count": 39
+  },
+  {
+    "state": "QLD",
+    "group": "Birds",
+    "count": 72
+  },
+  {
+    "state": "QLD",
+    "group": "Mammals",
+    "count": 49
+  },
+  {
+    "state": "QLD",
+    "group": "Fish",
+    "count": 25
+  },
+  {
+    "state": "QLD",
+    "group": "Reptiles",
+    "count": 44
+  },
+  {
+    "state": "QLD",
+    "group": "Frogs",
+    "count": 23
+  },
+  {
+    "state": "QLD",
+    "group": "Invertebrates",
+    "count": 23
+  },
+  {
+    "state": "WA",
+    "group": "Birds",
+    "count": 64
+  },
+  {
+    "state": "WA",
+    "group": "Mammals",
+    "count": 48
+  },
+  {
+    "state": "WA",
+    "group": "Fish",
+    "count": 15
+  },
+  {
+    "state": "WA",
+    "group": "Reptiles",
+    "count": 22
+  },
+  {
+    "state": "WA",
+    "group": "Frogs",
+    "count": 3
+  },
+  {
+    "state": "WA",
+    "group": "Invertebrates",
+    "count": 14
+  },
+  {
+    "state": "VIC",
+    "group": "Birds",
+    "count": 72
+  },
+  {
+    "state": "VIC",
+    "group": "Mammals",
+    "count": 28
+  },
+  {
+    "state": "VIC",
+    "group": "Fish",
+    "count": 28
+  },
+  {
+    "state": "VIC",
+    "group": "Reptiles",
+    "count": 15
+  },
+  {
+    "state": "VIC",
+    "group": "Frogs",
+    "count": 11
+  },
+  {
+    "state": "VIC",
+    "group": "Invertebrates",
+    "count": 10
+  },
+  {
+    "state": "SA",
+    "group": "Birds",
+    "count": 86
+  },
+  {
+    "state": "SA",
+    "group": "Mammals",
+    "count": 40
+  },
+  {
+    "state": "SA",
+    "group": "Fish",
+    "count": 17
+  },
+  {
+    "state": "SA",
+    "group": "Reptiles",
+    "count": 12
+  },
+  {
+    "state": "SA",
+    "group": "Frogs",
+    "count": 1
+  },
+  {
+    "state": "SA",
+    "group": "Invertebrates",
+    "count": 4
+  },
+  {
+    "state": "TAS",
+    "group": "Birds",
+    "count": 56
+  },
+  {
+    "state": "TAS",
+    "group": "Mammals",
+    "count": 11
+  },
+  {
+    "state": "TAS",
+    "group": "Fish",
+    "count": 16
+  },
+  {
+    "state": "TAS",
+    "group": "Reptiles",
+    "count": 8
+  },
+  {
+    "state": "TAS",
+    "group": "Frogs",
+    "count": 1
+  },
+  {
+    "state": "TAS",
+    "group": "Invertebrates",
+    "count": 15
+  }
+]

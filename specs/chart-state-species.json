@@ -1,0 +1,39 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "params": [
+    {
+      "name": "stateSelect",
+      "select": { "type": "point", "fields": ["state"] }
+    }
+  ],
+  "data": { "url": "../data/state_species.json" },
+  "width": "container",
+  "height": 300,
+  "mark": { "type": "bar", "cornerRadiusTopLeft": 3, "cornerRadiusTopRight": 3 },
+  "encoding": {
+    "x": {
+      "field": "state", "type": "nominal",
+      "sort": { "op": "sum", "field": "count", "order": "descending" },
+      "axis": { "title": null, "labelAngle": 0, "labelFontSize": 12 }
+    },
+    "y": {
+      "aggregate": "sum", "field": "count", "type": "quantitative",
+      "axis": { "title": "Threatened species count", "grid": true }
+    },
+    "color": {
+      "field": "status", "type": "nominal",
+      "scale": { "domain": ["Critically Endangered","Endangered","Vulnerable"], "range": ["#c84b31","#d98841","#e1b12c"] },
+      "legend": { "title": "Threat status", "orient": "top" }
+    },
+    "opacity": {
+      "condition": { "param": "stateSelect", "value": 1 },
+      "value": 0.3
+    },
+    "order": { "field": "status", "sort": "ascending" },
+    "tooltip": [
+      { "field": "state", "title": "State" },
+      { "field": "status", "title": "Status" },
+      { "field": "count", "title": "Species count" }
+    ]
+  }
+}

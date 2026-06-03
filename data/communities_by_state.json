@@ -1,0 +1,58 @@
+[
+  {
+    "state": "NSW",
+    "total": 60,
+    "critically_endangered": 30,
+    "endangered": 29,
+    "vulnerable": 1
+  },
+  {
+    "state": "WA",
+    "total": 27,
+    "critically_endangered": 5,
+    "endangered": 21,
+    "vulnerable": 1
+  },
+  {
+    "state": "VIC",
+    "total": 25,
+    "critically_endangered": 13,
+    "endangered": 11,
+    "vulnerable": 1
+  },
+  {
+    "state": "QLD",
+    "total": 22,
+    "critically_endangered": 7,
+    "endangered": 14,
+    "vulnerable": 1
+  },
+  {
+    "state": "SA",
+    "total": 18,
+    "critically_endangered": 9,
+    "endangered": 8,
+    "vulnerable": 1
+  },
+  {
+    "state": "TAS",
+    "total": 8,
+    "critically_endangered": 3,
+    "endangered": 3,
+    "vulnerable": 2
+  },
+  {
+    "state": "ACT",
+    "total": 3,
+    "critically_endangered": 2,
+    "endangered": 1,
+    "vulnerable": 0
+  },
+  {
+    "state": "NT",
+    "total": 2,
+    "critically_endangered": 0,
+    "endangered": 2,
+    "vulnerable": 0
+  }
+]

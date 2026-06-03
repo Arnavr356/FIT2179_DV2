@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "autosize": { "type": "pad", "contains": "padding" },
+  "width": "container",
+  "height": 360,
+  "data": { "url": "../data/comm_status.json" },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "innerRadius": 85, "outerRadius": 135,
+        "stroke": "#ffffff", "strokeWidth": 2
+      },
+      "encoding": {
+        "theta": { "field": "count", "type": "quantitative" },
+        "color": {
+          "field": "status", "type": "nominal",
+          "scale": { "domain": ["Critically Endangered","Endangered","Vulnerable"], "range": ["#c84b31","#d98841","#e1b12c"] },
+          "legend": { "title": "Threat status", "orient": "bottom", "direction": "horizontal", "columns": 3, "labelFontSize": 12, "titleFontSize": 13, "offset": 12 }
+        },
+        "tooltip": [
+          { "field": "status", "title": "Status" },
+          { "field": "count", "title": "Communities" }
+        ]
+      }
+    },
+    {
+      "transform": [{ "filter": "datum.count > 5" }],
+      "mark": { "type": "text", "radius": 112, "fontSize": 15, "fontWeight": "700", "fill": "#ffffff" },
+      "encoding": {
+        "theta": { "field": "count", "type": "quantitative", "stack": true },
+        "text": { "field": "count", "type": "quantitative" }
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 360,
+  "data": { "url": "../data/state_total.json" },
+  "layer": [
+    {
+      "mark": { "type": "circle", "opacity": 0.85, "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "x": {
+          "field": "species", "type": "quantitative",
+          "axis": { "title": "Threatened species count", "grid": true },
+          "scale": { "domain": [0, 800] }
+        },
+        "y": {
+          "field": "communities", "type": "quantitative",
+          "axis": { "title": "Threatened communities count", "grid": true },
+          "scale": { "domain": [0, 70] }
+        },
+        "size": {
+          "field": "total", "type": "quantitative",
+          "scale": { "range": [80, 700] },
+          "legend": { "title": "Total Listings" }
+        },
+        "color": {
+          "field": "critically_endangered", "type": "quantitative",
+          "scale": { "scheme": "reds" },
+          "legend": { "title": "Critically Endangered" }
+        },
+        "tooltip": [
+          { "field": "state", "title": "State", "type": "nominal" },
+          { "field": "species", "title": "Threatened species", "type": "quantitative" },
+          { "field": "communities", "title": "Threatened communities", "type": "quantitative" },
+          { "field": "critically_endangered", "title": "Critically Endangered", "type": "quantitative" },
+          { "field": "total", "title": "Total listings", "type": "quantitative" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "text", "dy": -18, "fontSize": 12, "fontWeight": "bold", "color": "#2c3e2d" },
+      "encoding": {
+        "x": { "field": "species", "type": "quantitative" },
+        "y": { "field": "communities", "type": "quantitative" },
+        "text": { "field": "state", "type": "nominal" }
+      }
+    },
+    {
+      "mark": { "type": "text", "fontSize": 10, "fontStyle": "italic", "color": "#c84b31", "fontWeight": "600", "dx": 5, "dy": 30 },
+      "data": { "values": [{ "x": 721, "y": 60, "note": "NSW: 4× more" }] },
+      "encoding": {
+        "x": { "field": "x", "type": "quantitative" },
+        "y": { "field": "y", "type": "quantitative" },
+        "text": { "field": "note" }
+      }
+    }
+  ]
+}

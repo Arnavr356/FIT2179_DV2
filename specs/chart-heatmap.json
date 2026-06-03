@@ -1,0 +1,28 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 280,
+  "data": { "url": "../data/heatmap_animals.json" },
+  "mark": { "type": "rect", "stroke": "#ffffff", "strokeWidth": 1 },
+  "encoding": {
+    "x": {
+      "field": "state", "type": "nominal",
+      "title": "State / Territory",
+      "sort": ["NSW","QLD","WA","VIC","SA","TAS"]
+    },
+    "y": {
+      "field": "group", "type": "nominal",
+      "title": "Animal Group"
+    },
+    "color": {
+      "field": "count", "type": "quantitative",
+      "scale": { "scheme": "orangered" },
+      "legend": { "title": "Threatened species count" }
+    },
+    "tooltip": [
+      { "field": "state", "title": "State" },
+      { "field": "group", "title": "Animal Group" },
+      { "field": "count", "title": "Threatened Species" }
+    ]
+  }
+}

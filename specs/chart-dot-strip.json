@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Dot strip chart replacing donut — shows each group's total and CE share as a proportional dot",
+  "data": { "url": "../data/group_totals.json" },
+  "width": "container",
+  "height": 280,
+  "layer": [
+    {
+      "mark": { "type": "bar", "color": "#e9ece4", "height": 6, "cornerRadius": 3 },
+      "encoding": {
+        "y": {
+          "field": "group", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" },
+          "axis": { "title": null, "labelFontSize": 12 }
+        },
+        "x": {
+          "field": "total", "type": "quantitative",
+          "axis": { "title": "Number of threatened species", "grid": true },
+          "scale": { "domain": [0, 1600] }
+        }
+      }
+    },
+    {
+      "mark": { "type": "circle", "opacity": 0.9, "stroke": "white", "strokeWidth": 1.5 },
+      "encoding": {
+        "y": {
+          "field": "group", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" }
+        },
+        "x": { "field": "total", "type": "quantitative" },
+        "size": {
+          "field": "total", "type": "quantitative",
+          "scale": { "range": [60, 600] },
+          "legend": null
+        },
+        "color": {
+          "field": "critically_endangered", "type": "quantitative",
+          "scale": { "scheme": "reds", "domain": [0, 310] },
+          "legend": { "title": "Critically Endangered" }
+        },
+        "tooltip": [
+          { "field": "group", "title": "Group" },
+          { "field": "total", "title": "Total threatened" },
+          { "field": "critically_endangered", "title": "Critically Endangered" },
+          { "field": "endangered", "title": "Endangered" },
+          { "field": "vulnerable", "title": "Vulnerable" }
+        ]
+      }
+    },
+    {
+      "mark": { "type": "text", "align": "left", "dx": 14, "fontSize": 11, "color": "#2c3e2d" },
+      "encoding": {
+        "y": {
+          "field": "group", "type": "nominal",
+          "sort": { "field": "total", "order": "descending" }
+        },
+        "x": { "field": "total", "type": "quantitative" },
+        "text": { "field": "total", "type": "quantitative" }
+      }
+    }
+  ]
+}
