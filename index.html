@@ -766,10 +766,15 @@ vegaEmbed("#chart-comm-status", {
       encoding: {
         theta: { field: "count", type: "quantitative", stack: true },
         text: { field: "count", type: "quantitative" },
-        color: {
-          condition: { test: "datum.status === 'Vulnerable'", value: "#6b4c00" },
-          value: "#ffffff"
-        }
+        color: { value: "#ffffff" }
+      }
+    },
+    {
+      transform: [{ filter: "datum.status === 'Vulnerable'" }],
+      mark: { type: "text", radius: 158, fontSize: 16, fontWeight: "700", color: "#5a3e00" },
+      encoding: {
+        theta: { field: "count", type: "quantitative", stack: true },
+        text: { field: "count", type: "quantitative" }
       }
     }
   ],
@@ -873,10 +878,9 @@ vegaEmbed("#chart-vertebrate-norm", {
       encoding: { y: { datum: 0.35, type: "quantitative" } }
     },
     {
-      data: { values: [{ label: "← 35% critical threshold" }] },
-      mark: { type: "text", align: "left", fontSize: 10, color: "#ffffff",
-              fontWeight: "700", dy: -9, dx: 6,
-              background: CE, cornerRadius: 3, padding: 3 },
+      data: { values: [{ label: "35% CE threshold" }] },
+      mark: { type: "text", align: "left", fontSize: 11, color: CE,
+              fontWeight: "700", dy: -10, dx: 5 },
       encoding: {
         x: { datum: "Frogs" },
         y: { datum: 0.35, type: "quantitative" },
