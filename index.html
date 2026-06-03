@@ -282,8 +282,7 @@
       </div>
       <div class="footer-block">
         <strong>AI Acknowledgement</strong>
-        Claude (Anthropic) was used for grammar refinement, debugging, and data wrangling scripts.
-        All visualisation design, chart selection, idiom choices, and narrative are the author's own work.
+        AI tools (Claude) were used to assist with grammar refinement, debugging, and data wrangling scripts.
       </div>
     </div>
   </div>
@@ -767,13 +766,23 @@ vegaEmbed("#chart-comm-status", {
         theta: { field: "count", type: "quantitative", stack: true },
         text: { field: "count", type: "quantitative" },
         color: {
-          condition: { test: "datum.status === 'Vulnerable'", value: "#4a3800" },
+          condition: { test: "datum.status === 'Vulnerable'", value: "#6b4c00" },
           value: "#ffffff"
         }
       }
     }
   ],
-  config: baseConfig
+  config: {
+    background: BG,
+    view: { stroke: "transparent" },
+    axis: { domainColor: GRID, gridColor: GRID, tickColor: GRID,
+            labelColor: MUTED, titleColor: MUTED, labelFontSize: 11, titleFontSize: 11,
+            titleFont: "Source Sans 3", labelFont: "Source Sans 3" },
+    legend: { labelColor: MUTED, titleColor: MUTED, labelFontSize: 12, titleFontSize: 12,
+              labelFont: "Source Sans 3", titleFont: "Source Sans 3", labelLimit: 200 },
+    title: { color: TEXT, fontSize: 13, font: "Source Sans 3" },
+    text: { font: "Source Sans 3" }
+  }
 }, { actions: false });
 
 // ── CHART 11 — Bubble scatter: species vs communities per state ─────────────────
@@ -863,10 +872,12 @@ vegaEmbed("#chart-vertebrate-norm", {
       encoding: { y: { datum: 0.35, type: "quantitative" } }
     },
     {
-      data: { values: [{ label: "35% CE threshold" }] },
-      mark: { type: "text", align: "right", fontSize: 10, color: CE, fontWeight: "700", dy: -7, dx: -3 },
+      data: { values: [{ label: "← 35% critical threshold" }] },
+      mark: { type: "text", align: "left", fontSize: 10, color: "#ffffff",
+              fontWeight: "700", dy: -9, dx: 6,
+              background: CE, cornerRadius: 3, padding: 3 },
       encoding: {
-        x: { datum: "Reptiles" },
+        x: { datum: "Frogs" },
         y: { datum: 0.35, type: "quantitative" },
         text: { field: "label" }
       }
