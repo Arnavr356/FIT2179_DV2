@@ -24,7 +24,7 @@ FIT2179_DV2/
 │   ├── heatmap_animals.json       # Animal group × state counts (from CSV)
 │   ├── map_labels.json            # State label coordinates for map
 │   └── australia-states.json     # GeoJSON boundaries for all 8 jurisdictions
-└── specs/              # Individual Vega-Lite JSON specs (human-readable)
+└── specs/              # Individual Vega-Lite JSON specs
     ├── chart-group-stacked.json
     ├── chart-crit-ratio.json
     ├── chart-dot-strip.json
