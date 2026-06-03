@@ -298,16 +298,21 @@ vegaEmbed("#chart-group-stacked", {
     x: {
       field: "group", type: "nominal",
       sort: { op: "sum", field: "count", order: "descending" },
-      axis: { labelAngle: -30, title: null, labelFontSize: 12 }
+      axis: { labelAngle: -30, title: null, labelFontSize: 12,
+              labelColor: "#6b7a68", domainColor: "#e2e4dc", tickColor: "#e2e4dc" }
     },
     y: {
       aggregate: "sum", field: "count", type: "quantitative",
-      axis: { title: "Number of threatened species", grid: true }
+      scale: { domainMin: 0 },
+      axis: { title: "Number of threatened species", grid: true,
+              labelColor: "#6b7a68", titleColor: "#6b7a68",
+              gridColor: "#e2e4dc", domainColor: "#e2e4dc", tickColor: "#e2e4dc" }
     },
     color: {
       field: "status", type: "nominal",
       scale: { domain: STATUS_ORDER, range: [CE, EN, VU] },
-      legend: { title: "Threat status", orient: "top" }
+      legend: { title: "Threat status", orient: "top",
+                labelColor: "#6b7a68", titleColor: "#6b7a68" }
     },
     order: { field: "status", sort: "ascending" },
     tooltip: [
@@ -316,7 +321,8 @@ vegaEmbed("#chart-group-stacked", {
       { field: "count", title: "Species count" }
     ]
   },
-  config: baseConfig
+  background: "transparent",
+  view: { stroke: "transparent" }
 }, { actions: false });
 
 // ── CHART 2 — Horizontal bar + reference line: critically endangered ratio ─────
@@ -564,26 +570,36 @@ vegaEmbed("#chart-state-species", {
 // ── CHART 7 — Lollipop: ecological communities by state (replaces stacked bar) ─
 vegaEmbed("#chart-communities-lollipop", {
   $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-  data: { url: "data/communities_by_state.json" },
+  data: { values: [
+    {"state":"NSW","total":60,"critically_endangered":30,"endangered":29,"vulnerable":1},
+    {"state":"WA","total":27,"critically_endangered":5,"endangered":21,"vulnerable":1},
+    {"state":"VIC","total":25,"critically_endangered":13,"endangered":11,"vulnerable":1},
+    {"state":"QLD","total":22,"critically_endangered":7,"endangered":14,"vulnerable":1},
+    {"state":"SA","total":18,"critically_endangered":9,"endangered":8,"vulnerable":1},
+    {"state":"TAS","total":8,"critically_endangered":3,"endangered":3,"vulnerable":2},
+    {"state":"ACT","total":3,"critically_endangered":2,"endangered":1,"vulnerable":0},
+    {"state":"NT","total":2,"critically_endangered":0,"endangered":2,"vulnerable":0}
+  ]},
   width: "container", height: 300,
   layer: [
     {
-      mark: { type: "rule", strokeWidth: 2.5, color: "#d1d8c9" },
+      mark: { type: "rule", strokeWidth: 3, color: "#d1d8c9" },
       encoding: {
         y: {
           field: "state", type: "nominal",
           sort: { field: "total", order: "descending" },
           axis: { title: null, labelFontSize: 13 }
         },
-        x: { field: "critically_endangered", type: "quantitative", axis: null },
-        x2: { field: "total" }
+        x: { field: "total", type: "quantitative",
+             axis: { title: "Total threatened ecological communities", grid: true } },
+        x2: { datum: 0 }
       }
     },
     {
-      mark: { type: "circle", size: 140, opacity: 0.9, stroke: "white", strokeWidth: 1.5 },
+      mark: { type: "circle", size: 180, opacity: 0.9, stroke: "white", strokeWidth: 1.5 },
       encoding: {
         y: { field: "state", type: "nominal", sort: { field: "total", order: "descending" } },
-        x: { field: "total", type: "quantitative", axis: { title: "Total threatened ecological communities", grid: true } },
+        x: { field: "total", type: "quantitative" },
         color: { value: EN },
         tooltip: [
           { field: "state", title: "State" },
@@ -595,7 +611,7 @@ vegaEmbed("#chart-communities-lollipop", {
       }
     },
     {
-      mark: { type: "circle", size: 100, opacity: 0.95, stroke: "white", strokeWidth: 1.5 },
+      mark: { type: "circle", size: 120, opacity: 0.95, stroke: "white", strokeWidth: 1.5 },
       encoding: {
         y: { field: "state", type: "nominal", sort: { field: "total", order: "descending" } },
         x: { field: "critically_endangered", type: "quantitative" },
@@ -607,7 +623,7 @@ vegaEmbed("#chart-communities-lollipop", {
       }
     },
     {
-      mark: { type: "text", align: "left", dx: 12, fontSize: 11, color: TEXT },
+      mark: { type: "text", align: "left", dx: 10, fontSize: 11, color: TEXT },
       encoding: {
         y: { field: "state", type: "nominal", sort: { field: "total", order: "descending" } },
         x: { field: "total", type: "quantitative" },
