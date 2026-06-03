@@ -778,7 +778,7 @@ vegaEmbed("#chart-comm-status", {
     legend: { labelColor: MUTED, titleColor: MUTED, labelFontSize: 12, titleFontSize: 12,
               labelFont: "Source Sans 3", titleFont: "Source Sans 3", labelLimit: 200 },
     title: { color: TEXT, fontSize: 13, font: "Source Sans 3" },
-    text: { font: "Source Sans 3" }
+    text: { font: "Source Sans 3", color: "#ffffff", fontSize: 20, fontWeight: "700" }
   }
 }, { actions: false });
 
@@ -861,21 +861,6 @@ vegaEmbed("#chart-vertebrate-norm", {
           { field: "count", title: "Species count" },
           { field: "pct", title: "% of group", format: ".1f" }
         ]
-      }
-    },
-    {
-      data: { values: [{}] },
-      mark: { type: "rule", color: CE, strokeDash: [5, 3], strokeWidth: 2, opacity: 0.85 },
-      encoding: { y: { datum: 0.35, type: "quantitative" } }
-    },
-    {
-      data: { values: [{ label: "── 35% CE threshold" }] },
-      mark: { type: "text", align: "left", fontSize: 11, color: CE,
-              fontWeight: "700", dy: 14, dx: 5 },
-      encoding: {
-        x: { datum: "Frogs" },
-        y: { datum: 1.02, type: "quantitative" },
-        text: { field: "label" }
       }
     }
   ],
